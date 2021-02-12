@@ -1,0 +1,42 @@
+abbr.card-symbol {
+  width: 1em;
+  height: 1em;
+  margin: .07em 0 -.14em .07em;
+
+  background-image: url('../assets/icons/empty.svg');
+
+  display: inline-block;
+  -webkit-border-radius: 500px;
+  border-radius: 500px;
+  text-indent: -999em;
+  overflow: hidden;
+  -webkit-background-size: 100% 100%;
+  background-size: 100% 100%;
+  background-position: top left;
+  -webkit-print-color-adjust: exact;
+
+  &.card-symbol-d {
+    background-image: url('../assets/icons/defense.svg');
+  }
+  &.card-symbol-i {
+    background-image: url('../assets/icons/intellect.svg');
+  }
+  &.card-symbol-h {
+    background-image: url('../assets/icons/life.svg');
+  }
+  &.card-symbol-p {
+    background-image: url('../assets/icons/power.svg');
+  }
+  &.card-symbol-r {
+    background-image: url('../assets/icons/resource.svg');
+  }
+  &.card-symbol-p1 {
+    background-image: url('../assets/icons/pitch1.svg');
+  }
+  &.card-symbol-p2 {
+    background-image: url('../assets/icons/pitch2.svg');
+  }
+  &.card-symbol-p3 {
+    background-image: url('../assets/icons/pitch3.svg');
+  }
+}

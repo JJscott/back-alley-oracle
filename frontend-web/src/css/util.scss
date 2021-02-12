@@ -1,0 +1,16 @@
+// Sass functions
+@function strip-unit($value) {
+    @if type-of($value) == 'number' and not unitless($value) {
+        @return $value / ($value * 0 + 1);
+    }
+}
+// Converts values with fixed px units to relative rem units
+@function px-to-rem($px-value, $base-font-size: 16px) {
+    $rem-size: strip-unit($px-value) / strip-unit($base-font-size);
+    @return $rem-size * 1rem;
+}
+// Converts values with fixed px units to relative em units
+@function px-to-em($px-value, $base-font-size: 16px) {
+    $em-size: strip-unit($px-value) / strip-unit($base-font-size);
+    @return $em-size * 1em;
+}

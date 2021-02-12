@@ -1,0 +1,44 @@
+{
+  "name": "squire",
+  "version": "0.1.0",
+  "private": true,
+  "description": "FaB Card Database and Deckbuilder Frontend",
+  "author": "JJScott",
+  "scripts": {
+    "dev": "vue-cli-service serve",
+    "build": "vue-cli-service build",
+    "start": "serve -s dist",
+    "lint": "vue-cli-service lint"
+  },
+  "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^1.2.34",
+    "@fortawesome/free-solid-svg-icons": "^5.15.2",
+    "@fortawesome/vue-fontawesome": "^3.0.0-3",
+    "@riophae/vue-treeselect": "^0.4.0",
+    "axios": "^0.21.1",
+    "buefy": "^0.9.4",
+    "ci": "^2.0.0",
+    "core-js": "^3.8.3",
+    "dotenv": "^8.2.0",
+    "serve": "^11.3.2",
+    "vee-validate": "^4.1.13",
+    "vue": "^3.0.5",
+    "vue-router": "^4.0.3",
+    "vue-select": "^3.11.2",
+    "vuex": "^4.0.0-rc.2",
+    "yup": "^0.29.3"
+  },
+  "devDependencies": {
+    "@vue/cli-plugin-babel": "^4.5.11",
+    "@vue/cli-plugin-eslint": "^4.5.11",
+    "@vue/cli-plugin-router": "^4.5.11",
+    "@vue/cli-plugin-vuex": "^4.5.11",
+    "@vue/cli-service": "^4.5.11",
+    "@vue/compiler-sfc": "^3.0.5",
+    "babel-eslint": "^10.1.0",
+    "eslint": "^6.7.2",
+    "eslint-plugin-vue": "^7.5.0",
+    "node-sass": "^4.12.0",
+    "sass-loader": "^8.0.2"
+  }
+}

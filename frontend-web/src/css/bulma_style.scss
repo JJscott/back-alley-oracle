@@ -1,0 +1,76 @@
+// Import Bulma's core
+@import "~bulma/sass/utilities/_all";
+
+// // Set your colors
+// $primary: #8c67ef;
+// $primary-invert: findColorInvert($primary);
+// $twitter: #4099FF;
+// $twitter-invert: findColorInvert($twitter);
+
+// // Setup $colors to use as bulma classes (e.g. 'is-twitter')
+// $colors: (
+//     "white": ($white, $black),
+//     "black": ($black, $white),
+//     "light": ($light, $light-invert),
+//     "dark": ($dark, $dark-invert),
+//     "primary": ($primary, $primary-invert),
+//     "info": ($info, $info-invert),
+//     "success": ($success, $success-invert),
+//     "warning": ($warning, $warning-invert),
+//     "danger": ($danger, $danger-invert),
+//     "twitter": ($twitter, $twitter-invert)
+// );
+
+// // Links
+// $link: $primary;
+// $link-invert: $primary-invert;
+// $link-focus-border: $primary;
+
+$navbar-breakpoint: $tablet;
+
+
+// Import Bulma and Buefy styles
+@import "~bulma";
+@import "~buefy/src/scss/buefy";
+
+
+// // TEMPORARY for DEBUGGING
+// p, section, div, label {
+//     background: #0000000F
+// }
+
+
+.visually-hidden, .vh {
+    position: absolute !important;
+    clip: rect(1px 1px 1px 1px); /* IE6, IE7 */
+    clip: rect(1px, 1px, 1px, 1px);
+    padding:0 !important;
+    border:0 !important;
+    height: 1px !important; 
+    width: 1px !important; 
+    overflow: hidden;
+}
+
+
+.inner-flex {
+    margin: 0 auto;
+    max-width: 1000px;
+    position: relative;
+    display: flex;
+    flex-flow: column nowrap;
+}
+
+
+.loader {
+  border: 0.5rem solid #bbb;
+  border-top: 0.5rem solid #555;
+  border-radius: 50%;
+  width: 4rem;
+  height: 4rem;
+  animation: loader-spin 1s linear infinite;
+}
+
+@keyframes loader-spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
