@@ -80,10 +80,10 @@ const subtypeWhereClause = (key, op, value, query) => {
 
 const keywordWhereClause = (key, op, value, query) => {
   const subquery = knex
-    .select('cardTemplateSubtypes.cardTemplateId')
-    .from('cardTemplateSubtypes')
-    .join('cardSubtypes', 'cardTemplateSubtypes.cardSubtypeId', 'cardSubtypes.id')
-    .whereRaw('subtype IN ( ? )', [value]);
+    .select('cardTemplateKeywords.cardTemplateId')
+    .from('cardTemplateKeywords')
+    .join('cardKeywords', 'cardTemplateKeywords.cardKeywordId', 'cardKeywords.id')
+    .whereRaw('keyword IN ( ? )', [value]);
   switch (op) {
     case ':' : return query.whereIn('templateId', subquery);
     case '!:': return query.whereNotIn('templateId', subquery);
@@ -106,9 +106,7 @@ exports.getOne = async ({ searchOptions={} }) => {
   let result = [];
   await knex
     .select('prints.*', 'faces.*', 'templates.*')
-    .from({prints:'dnCardPrints'})
-    .leftJoin({faces:'dnCardFaces'}, 'faces.faceId', 'prints.frontCardFaceId')
-    .leftJoin({templates:'dnCardTemplates'}, 'templates.templateId', 'faces.cardTemplateId')
+    .from({prints:'v_cards'})
     .where(searchOptions)
     .then(rows => {
       result = rows[0] || [];
@@ -125,10 +123,8 @@ exports.getOne = async ({ searchOptions={} }) => {
 exports.getRandom = async () => {
   let result = [];
   await knex
-    .select('prints.*', 'faces.*', 'templates.*')
-    .from({prints:'dnCardPrints'})
-    .leftJoin({faces:'dnCardFaces'}, 'faces.faceId', 'prints.frontCardFaceId')
-    .leftJoin({templates:'dnCardTemplates'}, 'templates.templateId', 'faces.cardTemplateId')
+    .select('*')
+    .from('v_cards')
     .groupBy('printId') // need groupBy to ensure even distribution for prints
     .orderByRaw('RAND()')
     .limit(1)
@@ -146,19 +142,16 @@ exports.getRandom = async () => {
 
 exports.findAll = async ({
   searchOptions={},
-  pageOptions={page:1,limit:60},
-  orderBy='templateSid ASC',
-  unique='templateId'
+  // pageOptions={page:1,limit:60},
+  // orderBy='templateSid ASC',
+  // unique='templateId'
 } = {}) => {
 
   let result = [];
 
   let query = knex
-    .select('prints.*', 'faces.*', 'templates.*')
-    .from({prints:'dnCardPrints'})
-    .leftJoin({faces:'dnCardFaces'}, 'faces.faceId', 'prints.frontCardFaceId')
-    .leftJoin({templates:'dnCardTemplates'}, 'templates.templateId', 'faces.cardTemplateId')
-    .groupBy(unique)
+    .select()
+    .from('v_cards')
     .as('results');
 
   // iterate through each key-value pair in searchOptions
@@ -213,8 +206,8 @@ exports.findAll = async ({
   await knex
     .select('*')
     .from(query)
-    .limit(pageOptions.limit)
-    .offset((pageOptions.page-1) * pageOptions.limit)
+    // .limit(pageOptions.limit)
+    // .offset((pageOptions.page-1) * pageOptions.limit)
     .then(rows => {
       cardRows = rows;
     })

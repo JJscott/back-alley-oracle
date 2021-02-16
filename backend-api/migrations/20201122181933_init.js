@@ -150,7 +150,7 @@ exports.up = function(knex) {
     // Helper views
     .raw(`
       SELECT DATABASE();
-      CREATE VIEW dnCardSets AS
+      CREATE VIEW v_cardSets AS
       SELECT 
         cardSets.id AS setId,
         cardSets.setCode,
@@ -161,11 +161,12 @@ exports.up = function(knex) {
         cardSetTypes.draftable,
         cardSetTypes.promo
       FROM cardSets
-      LEFT JOIN cardSetTypes ON cardSets.cardSetTypeId = cardSetTypes.id;`
-    )
+      LEFT JOIN cardSetTypes ON cardSets.cardSetTypeId = cardSetTypes.id;
+    `)
     .raw(`
-      CREATE VIEW dnCardTemplates AS
-      SELECT 
+      CREATE VIEW v_cards AS
+      SELECT
+        frontPrintFace.id AS cardId,
         cardTemplates.id AS templateId,
         cardTemplates.templateSid,
         cardTemplates.pitch,
@@ -184,30 +185,7 @@ exports.up = function(knex) {
         cardSpecializations.specialization,
         cardTypes.type,
         cardSubtypesCSV.subtypes_csv,
-        cardKeywordsCSV.keywords_csv
-      FROM cardTemplates
-      LEFT JOIN cardNames ON cardTemplates.cardNameId = cardNames.id
-      LEFT JOIN cardClasses ON cardTemplates.cardClassId = cardClasses.id
-      LEFT JOIN cardSpecializations ON cardTemplates.cardSpecializationId = cardSpecializations.id
-      LEFT JOIN cardTypes ON cardTemplates.cardTypeId = cardTypes.id
-      LEFT JOIN cardTemplateSubtypes ON cardTemplates.id = cardTemplateSubtypes.cardTemplateId
-      LEFT JOIN (
-        SELECT cardTemplateId, GROUP_CONCAT(cardSubtypes.subtype) subtypes_csv
-        FROM cardTemplateSubtypes
-        LEFT JOIN cardSubtypes ON cardTemplateSubtypes.cardSubtypeId = cardSubtypes.id
-        GROUP BY cardTemplateId
-      ) cardSubtypesCSV ON cardTemplates.id = cardSubtypesCSV.cardTemplateId
-      LEFT JOIN cardTemplateKeywords ON cardTemplates.id = cardTemplateKeywords.cardTemplateId
-      LEFT JOIN (
-        SELECT cardTemplateId, GROUP_CONCAT(cardKeywords.keyword) keywords_csv
-        FROM cardTemplateKeywords
-        LEFT JOIN cardKeywords ON cardTemplateKeywords.cardKeywordId = cardKeywords.id
-        GROUP BY cardTemplateId
-      ) cardKeywordsCSV ON cardTemplates.id = cardKeywordsCSV.cardTemplateId;`
-    )
-    .raw(`
-      CREATE VIEW dnCardFaces AS
-      SELECT 
+        cardKeywordsCSV.keywords_csv,
         cardFaces.id AS faceId,
         cardFaces.faceSid,
         cardFaces.setNumber,
@@ -231,19 +209,7 @@ exports.up = function(knex) {
         cardArtTypes.artTypeRank,
         cardFrameStyles.frameStyle,
         cardFrameAltColors.frameAltColor,
-        cardArtists.artistName
-      FROM cardFaces
-      LEFT JOIN cardSets ON cardFaces.cardSetId = cardSets.id
-      LEFT JOIN cardSetTypes ON cardSets.cardSetTypeId = cardSetTypes.id
-      LEFT JOIN cardRarities ON cardFaces.cardRarityId = cardRarities.id
-      LEFT JOIN cardArtTypes ON cardFaces.cardArtTypeId = cardArtTypes.id
-      LEFT JOIN cardFrameStyles ON cardFaces.cardFrameStyleId = cardFrameStyles.id
-      LEFT JOIN cardFrameAltColors ON cardFaces.cardFrameAltColorId = cardFrameAltColors.id
-      LEFT JOIN cardArtists ON cardFaces.cardArtistId = cardArtists.id;`
-    )
-    .raw(`
-      CREATE VIEW dnCardPrints AS
-      SELECT
+        cardArtists.artistName,
         cardPrints.id AS printId,
         cardPrints.printSid,
         cardFinishTypes.finishTypeCode,
@@ -254,81 +220,49 @@ exports.up = function(knex) {
         cardGroups.groupName,
         cardGroups.datePrinted,
         cardGroups.dateReleased,
-        frontPrintFace.id AS frontPrintFaceId,
         frontPrintFace.cardFaceId AS frontCardFaceId,
         backPrintFace.cardFaceId AS backCardFaceId
       FROM cardPrints
-      LEFT JOIN cardFinishTypes
-        ON cardPrints.cardFinishTypeId = cardFinishTypes.id
-      LEFT JOIN cardLayouts
-        ON cardPrints.cardLayoutId = cardLayouts.id
-      LEFT JOIN cardGroups
-        ON cardPrints.cardGroupId = cardGroups.id
-      LEFT JOIN cardPrintFaces frontPrintFace
-        ON cardPrints.id = frontPrintFace.cardPrintId
-      LEFT JOIN cardPrintFaces backPrintFace
-        ON frontPrintFace.cardPrintId = backPrintFace.cardPrintId
-        AND backPrintFace.id <> frontPrintFace.id;`
-    )
-    .raw(`
-      CREATE VIEW dnUniqueTemplateCardPrints AS
-      SELECT unique_prints.*
-      FROM (
-        SELECT
-          cardPrints.id AS printId,
-          cardPrints.printSid,
-          cardFinishTypes.finishTypeCode,
-          cardFinishTypes.finishTypeName,
-          cardFinishTypes.finishTypeRank,
-          cardLayouts.layout,
-          cardGroups.groupCode,
-          cardGroups.groupName,
-          cardGroups.datePrinted,
-          cardGroups.dateReleased,
-          frontPrintFace.id AS frontPrintFaceId,
-          frontPrintFace.cardFaceId AS frontCardFaceId,
-          backPrintFace.cardFaceId AS backCardFaceId,
-          ROW_NUMBER() OVER (
-            PARTITION BY cardTemplateId 
-            ORDER BY
-              booster DESC,
-              dateReleased DESC,
-              finishTypeRank ASC,
-              artTypeRank ASC
-        ) unique_row_num
-        FROM cardPrints
-        LEFT JOIN cardFinishTypes
-          ON cardPrints.cardFinishTypeId = cardFinishTypes.id
-        LEFT JOIN cardLayouts
-          ON cardPrints.cardLayoutId = cardLayouts.id
-        LEFT JOIN cardGroups
-          ON cardPrints.cardGroupId = cardGroups.id
-        LEFT JOIN cardPrintFaces frontPrintFace
-          ON cardPrints.id = frontPrintFace.cardPrintId
-        LEFT JOIN cardFaces
-          ON frontPrintFace.cardFaceId = cardFaces.id
-        LEFT JOIN cardArtTypes
-          ON cardFaces.cardArtTypeId = cardArtTypes.id
-        LEFT JOIN cardSets
-          ON cardFaces.cardSetId = cardSets.id
-        LEFT JOIN cardSetTypes
-          ON cardSets.cardSetTypeId = cardSetTypes.id
-        LEFT JOIN cardPrintFaces backPrintFace
-        ON frontPrintFace.cardPrintId = backPrintFace.cardPrintId
-          AND backPrintFace.id <> frontPrintFace.id
-      ) unique_prints
-      WHERE unique_prints.unique_row_num = 1;`
-    )
+      INNER JOIN cardPrintFaces frontPrintFace ON frontPrintFace.cardPrintId = cardPrints.id
+      LEFT JOIN cardPrintFaces backPrintFace ON backPrintFace.cardPrintId = frontPrintFace.cardPrintId AND backPrintFace.id <> frontPrintFace.id
+      INNER JOIN cardFaces ON cardFaces.id = frontPrintFace.cardFaceId
+      INNER JOIN cardTemplates ON cardTemplates.id = cardFaces.cardTemplateId
+      LEFT JOIN cardNames ON cardNames.id = cardTemplates.cardNameId
+      LEFT JOIN cardClasses ON cardClasses.id = cardTemplates.cardClassId
+      LEFT JOIN cardSpecializations ON cardSpecializations.id = cardTemplates.cardSpecializationId
+      LEFT JOIN cardTypes ON cardTypes.id = cardTemplates.cardTypeId
+      LEFT JOIN cardTemplateSubtypes ON cardTemplateSubtypes.cardTemplateId = cardTemplates.id
+      LEFT JOIN (
+        SELECT cardTemplateId, GROUP_CONCAT(cardSubtypes.subtype) subtypes_csv
+        FROM cardTemplateSubtypes
+        LEFT JOIN cardSubtypes ON cardSubtypes.id = cardTemplateSubtypes.cardSubtypeId
+        GROUP BY cardTemplateId
+      ) cardSubtypesCSV ON cardSubtypesCSV.cardTemplateId = cardTemplates.id
+      LEFT JOIN cardTemplateKeywords ON cardTemplateKeywords.cardTemplateId = cardTemplates.id
+      LEFT JOIN (
+        SELECT cardTemplateId, GROUP_CONCAT(cardKeywords.keyword) keywords_csv
+        FROM cardTemplateKeywords
+        LEFT JOIN cardKeywords ON cardKeywords.id = cardTemplateKeywords.cardKeywordId
+        GROUP BY cardTemplateId
+      ) cardKeywordsCSV ON cardKeywordsCSV.cardTemplateId = cardTemplates.id
+      LEFT JOIN cardSets ON cardSets.id = cardFaces.cardSetId
+      LEFT JOIN cardSetTypes ON cardSetTypes.id = cardSets.cardSetTypeId
+      LEFT JOIN cardRarities ON cardRarities.id = cardFaces.cardRarityId
+      LEFT JOIN cardArtTypes ON cardArtTypes.id = cardFaces.cardArtTypeId
+      LEFT JOIN cardFrameStyles ON cardFrameStyles.id = cardFaces.cardFrameStyleId
+      LEFT JOIN cardFrameAltColors ON cardFrameAltColors.id = cardFaces.cardFrameAltColorId
+      LEFT JOIN cardArtists ON cardArtists.id = cardFaces.cardArtistId
+      LEFT JOIN cardFinishTypes ON cardFinishTypes.id = cardPrints.cardFinishTypeId
+      LEFT JOIN cardLayouts ON cardLayouts.id = cardPrints.cardLayoutId
+      LEFT JOIN cardGroups ON cardGroups.id = cardPrints.cardGroupId;
+    `)
 };
 
 exports.down = function(knex) {
   return knex.schema
     // Views
-    .raw('DROP VIEW IF EXISTS dnUniqueTemplateCardPrints')
-    .raw('DROP VIEW IF EXISTS dnCardPrints')
-    .raw('DROP VIEW IF EXISTS dnCardFaces')
-    .raw('DROP VIEW IF EXISTS dnCardTemplates')
-    .raw('DROP VIEW IF EXISTS dnCardSets')
+    .raw('DROP VIEW IF EXISTS v_cards')
+    .raw('DROP VIEW IF EXISTS v_cardSets')
     // Card Print
     .dropTable('cardPrintFaces')
     .dropTable('cardPrints')
@@ -351,7 +285,7 @@ exports.down = function(knex) {
     .dropTable('cardTypes')
     .dropTable('cardClasses')
     .dropTable('cardNames')
-    // Set
+    // Set / Group
     .dropTable('cardGroups')
     .dropTable('cardSets')
     .dropTable('cardSetTypes')
