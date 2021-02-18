@@ -90,7 +90,7 @@ const rowToCard = row => {
 
 // Parse query
 const searchAliases = {
-  p: 'pitch',
+  x: 'pitch',
   r: 'cost',
   p: 'power',
   d: 'defense',
@@ -98,12 +98,12 @@ const searchAliases = {
   i: 'intellect',
   h: 'handedness',
   c: 'class',
-  sp: 'specialization',
+  s: 'specialization',
   t: 'type',
-  st: 'subtype',
-  kw: 'keyword',
-  rt: 'rulesText',
-  ft: 'flavorText'
+  u: 'subtype',
+  k: 'keyword',
+  o: 'rulesText',
+  f: 'flavorText'
 };
 
 

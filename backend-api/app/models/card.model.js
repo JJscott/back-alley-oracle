@@ -149,9 +149,27 @@ exports.findAll = async ({
 
   let result = [];
 
+
+  // unique card
+  let inner_query = knex.raw(`
+    SELECT
+      v_cards.*,
+      ROW_NUMBER() OVER (
+        PARTITION BY cardTemplateId 
+        ORDER BY
+          booster DESC,
+          dateReleased DESC,
+          finishTypeRank ASC,
+          artTypeRank ASC
+      ) row_num
+    FROM v_cards
+  `);
+
   let query = knex
+    .with('ordered', inner_query)
     .select()
-    .from('v_cards')
+    .from('ordered')
+    .where('row_num', 1)
     .as('results');
 
   // iterate through each key-value pair in searchOptions
