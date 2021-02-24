@@ -175,7 +175,6 @@ exports.findAll = async ({
   // iterate through each key-value pair in searchOptions
   searchOptions.forEach(({key, op, value}) => {
     console.log(`${key} ${op} ${value}`);
-
     switch (key) {
       case 'pitch':
       case 'cost':
