@@ -1,34 +1,36 @@
 -- migrate:up
 
-CREATE TABLE cardSetTypes (
+CREATE TABLE card_set_types (
     id SERIAL PRIMARY KEY,
-    setTypeName TEXT UNIQUE NOT NULL,
-    setTypeRank INT UNIQUE NOT NULL,
+    set_type_name TEXT UNIQUE NOT NULL,
+    set_type_rank INT UNIQUE NOT NULL,
     booster BOOLEAN NOT NULL,
     draftable BOOLEAN NOT NULL,
     promo BOOLEAN NOT NULL
 );
 
-CREATE TABLE cardSets (
+CREATE TABLE card_sets (
     id SERIAL PRIMARY KEY,
-    setCode TEXT UNIQUE NOT NULL,
-    setName TEXT UNIQUE NOT NULL,
-    cardSetTypeId INTEGER REFERENCES cardSetTypes (id),
-    parentSetId INTEGER REFERENCES cardSets (id)
+    set_code TEXT UNIQUE NOT NULL,
+    set_name TEXT UNIQUE NOT NULL,
+    card_set_type_id INT REFERENCES card_set_types (id),
+    parent_set_id INT REFERENCES card_sets (id)
 );
 
-CREATE TABLE cardGroups (
+CREATE TABLE card_groups (
     id SERIAL PRIMARY KEY,
-    groupCode TEXT UNIQUE NOT NULL,
-    groupName TEXT UNIQUE NOT NULL,
-    datePrinted DATE,
-    dateReleased DATE
+    group_code TEXT UNIQUE NOT NULL,
+    group_name TEXT UNIQUE NOT NULL,
+    date_printed DATE,
+    date_released DATE
 );
+
+
 
 
 
 -- migrate:down
 
-DROP TABLE cardGroups;
-DROP TABLE cardSets;
-DROP TABLE cardSetTypes;
+DROP TABLE card_groups;
+DROP TABLE card_sets;
+DROP TABLE card_set_types;

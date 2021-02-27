@@ -1,50 +1,46 @@
-# Notes
-Possible name : Sanctum of Solace, SoS or Sanctum for short
-
-
 # Setup
 
 Install npm.
 
+## Create an `.env` file (set enviroment variables)
+
 Create a `.env` file in the root of the project, filling out the following appropriately:
 ```js
 PORT=8080
-HOST='localhost'
-USER='<user>'
-PASSWORD='<password>'
-DB='<db>'
+PSQL_HOST='localhost'
+PSQL_USER='username'
+PSQL_PASSWORD='password'
+PSQL_DB='database'
+DATABASE_URL='postgres://username:password@localhost:5432/database?sslmode=disable'
+API_URL='http://localhost:8080/'
+IMG_URL='https://img.backalleyoracle.com/'
+WEB_URL='http://localhost:8081/'
 ```
 
-To add SQL, in mysql:
+## Migrate and initilize the database
+
+
+First migrate the database using `dbmate`.
 
 ```
-mysql>\connect root@localhost
-mysql>\sql
-mysql>use <florisdb>;
+> dbmate up
 ```
-`mysql> source <file>;`
 
- - `init.sql`
- - `cards.sql`
- - `prints.sql`
- - `load.sql`
+Then seed the database with card data using
 
-To run
+```
+> npx knex seed:run
+```
+
+# To run
+
 `npm run dev`
 `npm run start`
 
 
-## Stores
-Noteable online stores:
-https://fabempire.com/ REDDIT10
-https://cardmerchant.co.nz/
-https://fabarmory.com/ Sam smith
-https://www.rathe.shop/
-https://www.calicokeep.com/collections/fab-singles
-https://hobbymaster.co.nz/cards/37
 
 
-## notes:
+# notes:
 ```sql
 WITH cardPrints
 AS (SELECT *, ROW_NUMBER() OVER (
@@ -64,6 +60,16 @@ LEFT JOIN printRarities ON cardPrints.printRarityId = printRarities.id
 LEFT JOIN printSets ON cardPrints.printSetId = printSets.id
 WHERE row_num = 1;
 ```
+
+## Stores
+Noteable online stores:
+https://fabempire.com/ REDDIT10
+https://cardmerchant.co.nz/
+https://fabarmory.com/ Sam smith
+https://www.rathe.shop/
+https://www.calicokeep.com/collections/fab-singles
+https://hobbymaster.co.nz/cards/37
+
 
 ## static files:
 https://expressjs.com/en/starter/static-files.html

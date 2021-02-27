@@ -13,81 +13,6 @@ const {
 const cardIdHasher = new Hashids('oracle', 10);
 
 
-const rowToCard = row => {
-  const hashId = cardIdHasher.encode(row.cardId);
-
-  let card = {};
-
-  // card
-  card.id = hashId;
-  card.object = 'card';
-
-  // template
-  card.templateSid = row.templateSid;
-  card.name = row.name;
-  if (row.pitch !== null) card.pitch = row.pitch;
-  if (row.cost !== null) card.cost = row.cost;
-  if (row.varCost !== null) card.varCost = row.varCost;
-  if (row.power !== null) card.power = row.power;
-  if (row.defense !== null) card.defense = row.defense;
-  if (row.intellect !== null) card.intellect = row.intellect;
-  if (row.life !== null) card.life = row.life;
-  if (row.handedness !== null) card.handedness = row.handedness;
-  if (row.specialization !== null) card.specialization = row.specialization;
-  card.legendary = row.legendary;
-  card.class = row.class;
-  card.type = row.type;
-  card.subtypes = (row.subtypes_csv !== null) ? row.subtypes_csv.split(',') : [];
-  card.keywords = (row.keywords_csv !== null) ? row.keywords_csv.split(',') : [];
-
-  // face
-  card.faceSid = row.faceSid;
-  card.artistName = row.artistName;
-  card.setNumber = row.setNumber;
-  card.setCode = row.setCode;
-  card.setName = row.setName;
-  card.setType = row.setTypeName;
-  card.booster = row.booster;
-  card.draftable = row.draftable;
-  card.promo = row.promo;
-  card.code = row.code;
-  card.rulesText = row.rulesText;
-  card.flavorText = row.flavorText;
-  card.rarityCode = row.rarityCode;
-  card.rarityName = row.rarityName;
-  card.artTypeCode = row.artTypeCode;
-  card.artTypeName = row.artTypeName;
-  card.frameStyle = row.frameStyle;
-  if (row.frameAltColor !== null) card.frameAltColor = row.frameAltColor;
-  card.imageUris = {
-    png: process.env.IMG_URL + 'raw/' + row.imageStr + '.png',
-    normal: process.env.IMG_URL + 'raw/' + row.imageStr + '.png',
-    small: process.env.IMG_URL + 'raw/' + row.imageStr + '.png',
-    thumb: process.env.IMG_URL + 'raw/' + row.imageStr + '.png',
-  };
-
-  // print
-  card.cardPrintSid = row.cardPrintSid;
-  card.finishTypeCode = row.finishTypeCode;
-  card.finishTypeName = row.finishTypeName;
-  card.layout = row.layout;
-  card.groupCode = row.groupCode;
-  card.groupName = row.groupName;
-  card.datePrinted = row.datePrinted;
-  card.dateReleased = row.dateReleased;
-  // ?? nzId ??
-  // tcgPlayerId
-  // cardMerchantId
-
-  card.squireUri = `${process.env.WEB_URL}cards/${hashId}`;
-
-  // if (row.pitch !== null)
-  // card.printsUri = `${process.env.API_URL}cards/search?q=name:"${row.name}"%20${}`;
-
-  return card;
-};
-
-
 // Parse query
 const searchAliases = {
   x: 'pitch',
@@ -102,8 +27,8 @@ const searchAliases = {
   t: 'type',
   u: 'subtype',
   k: 'keyword',
-  o: 'rulesText',
-  f: 'flavorText'
+  o: 'rules_text',
+  f: 'flavor_text'
 };
 
 
@@ -167,8 +92,8 @@ const validateParseQuery = (queryString) => {
 
         // name
         case 'name':
-        case 'rulesText':
-        case 'flavorText':
+        case 'rules_text':
+        case 'flavor_text':
           if (op !== ':') {
             warnings.push(`Invalid operator '${op}' for key '${key}'`);
           }
@@ -344,13 +269,14 @@ exports.search = async (req, res) => {
     // unique: unique
   });
 
-  cards = rows.map(row => rowToCard(row));
+  // cards = rows.map(row => rowToCard(row));
+  cards = rows;
 
   // return
   // 
   const cardList = {
     object: 'list',
-    totalCount: totalCount,
+    total_count: totalCount,
     // hasMore: (totalCount > pageNumber * pageLimit),
     warnings: warnings,
     data: cards

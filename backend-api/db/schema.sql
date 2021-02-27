@@ -14,20 +14,22 @@ SET default_tablespace = '';
 SET default_table_access_method = heap;
 
 --
--- Name: cardartists; Type: TABLE; Schema: public; Owner: -
+-- Name: card_art_types; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public.cardartists (
+CREATE TABLE public.card_art_types (
     id integer NOT NULL,
-    artistname text NOT NULL
+    art_type_code text NOT NULL,
+    art_type_name text NOT NULL,
+    art_type_rank integer NOT NULL
 );
 
 
 --
--- Name: cardartists_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: card_art_types_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.cardartists_id_seq
+CREATE SEQUENCE public.card_art_types_id_seq
     AS integer
     START WITH 1
     INCREMENT BY 1
@@ -37,29 +39,27 @@ CREATE SEQUENCE public.cardartists_id_seq
 
 
 --
--- Name: cardartists_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+-- Name: card_art_types_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE public.cardartists_id_seq OWNED BY public.cardartists.id;
+ALTER SEQUENCE public.card_art_types_id_seq OWNED BY public.card_art_types.id;
 
 
 --
--- Name: cardarttypes; Type: TABLE; Schema: public; Owner: -
+-- Name: card_artists; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public.cardarttypes (
+CREATE TABLE public.card_artists (
     id integer NOT NULL,
-    arttypecode text NOT NULL,
-    arttypename text NOT NULL,
-    arttyperank integer NOT NULL
+    artist_name text NOT NULL
 );
 
 
 --
--- Name: cardarttypes_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: card_artists_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.cardarttypes_id_seq
+CREATE SEQUENCE public.card_artists_id_seq
     AS integer
     START WITH 1
     INCREMENT BY 1
@@ -69,27 +69,27 @@ CREATE SEQUENCE public.cardarttypes_id_seq
 
 
 --
--- Name: cardarttypes_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+-- Name: card_artists_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE public.cardarttypes_id_seq OWNED BY public.cardarttypes.id;
+ALTER SEQUENCE public.card_artists_id_seq OWNED BY public.card_artists.id;
 
 
 --
--- Name: cardclasses; Type: TABLE; Schema: public; Owner: -
+-- Name: card_classes; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public.cardclasses (
+CREATE TABLE public.card_classes (
     id integer NOT NULL,
     class text NOT NULL
 );
 
 
 --
--- Name: cardclasses_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: card_classes_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.cardclasses_id_seq
+CREATE SEQUENCE public.card_classes_id_seq
     AS integer
     START WITH 1
     INCREMENT BY 1
@@ -99,39 +99,39 @@ CREATE SEQUENCE public.cardclasses_id_seq
 
 
 --
--- Name: cardclasses_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+-- Name: card_classes_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE public.cardclasses_id_seq OWNED BY public.cardclasses.id;
+ALTER SEQUENCE public.card_classes_id_seq OWNED BY public.card_classes.id;
 
 
 --
--- Name: cardfaces; Type: TABLE; Schema: public; Owner: -
+-- Name: card_faces; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public.cardfaces (
+CREATE TABLE public.card_faces (
     id integer NOT NULL,
-    facesid text NOT NULL,
-    setnumber integer NOT NULL,
-    imagestr text NOT NULL,
+    face_sid text NOT NULL,
+    set_number integer NOT NULL,
+    image_str text NOT NULL,
     code text NOT NULL,
-    rulestext text,
-    flavortext text,
-    cardtemplateid integer,
-    cardsetid integer,
-    cardrarityid integer,
-    cardarttypeid integer,
-    cardframestyleid integer,
-    cardframealtcolorid integer,
-    cardartistid integer
+    rules_text text,
+    flavor_text text,
+    card_template_id integer,
+    card_set_id integer,
+    card_rarity_id integer,
+    card_art_type_id integer,
+    card_frame_style_id integer,
+    card_frame_color_id integer,
+    card_artist_id integer
 );
 
 
 --
--- Name: cardfaces_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: card_faces_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.cardfaces_id_seq
+CREATE SEQUENCE public.card_faces_id_seq
     AS integer
     START WITH 1
     INCREMENT BY 1
@@ -141,29 +141,29 @@ CREATE SEQUENCE public.cardfaces_id_seq
 
 
 --
--- Name: cardfaces_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+-- Name: card_faces_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE public.cardfaces_id_seq OWNED BY public.cardfaces.id;
+ALTER SEQUENCE public.card_faces_id_seq OWNED BY public.card_faces.id;
 
 
 --
--- Name: cardfinishtypes; Type: TABLE; Schema: public; Owner: -
+-- Name: card_finish_types; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public.cardfinishtypes (
+CREATE TABLE public.card_finish_types (
     id integer NOT NULL,
-    finishtypecode text NOT NULL,
-    finishtypename text NOT NULL,
-    finishtyperank integer NOT NULL
+    finish_type_code text NOT NULL,
+    finish_type_name text NOT NULL,
+    finish_type_rank integer NOT NULL
 );
 
 
 --
--- Name: cardfinishtypes_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: card_finish_types_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.cardfinishtypes_id_seq
+CREATE SEQUENCE public.card_finish_types_id_seq
     AS integer
     START WITH 1
     INCREMENT BY 1
@@ -173,27 +173,27 @@ CREATE SEQUENCE public.cardfinishtypes_id_seq
 
 
 --
--- Name: cardfinishtypes_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+-- Name: card_finish_types_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE public.cardfinishtypes_id_seq OWNED BY public.cardfinishtypes.id;
+ALTER SEQUENCE public.card_finish_types_id_seq OWNED BY public.card_finish_types.id;
 
 
 --
--- Name: cardframealtcolors; Type: TABLE; Schema: public; Owner: -
+-- Name: card_frame_colors; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public.cardframealtcolors (
+CREATE TABLE public.card_frame_colors (
     id integer NOT NULL,
-    framealtcolor text NOT NULL
+    frame_color text NOT NULL
 );
 
 
 --
--- Name: cardframealtcolors_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: card_frame_colors_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.cardframealtcolors_id_seq
+CREATE SEQUENCE public.card_frame_colors_id_seq
     AS integer
     START WITH 1
     INCREMENT BY 1
@@ -203,27 +203,27 @@ CREATE SEQUENCE public.cardframealtcolors_id_seq
 
 
 --
--- Name: cardframealtcolors_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+-- Name: card_frame_colors_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE public.cardframealtcolors_id_seq OWNED BY public.cardframealtcolors.id;
+ALTER SEQUENCE public.card_frame_colors_id_seq OWNED BY public.card_frame_colors.id;
 
 
 --
--- Name: cardframestyles; Type: TABLE; Schema: public; Owner: -
+-- Name: card_frame_styles; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public.cardframestyles (
+CREATE TABLE public.card_frame_styles (
     id integer NOT NULL,
-    framestyle text NOT NULL
+    frame_style text NOT NULL
 );
 
 
 --
--- Name: cardframestyles_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: card_frame_styles_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.cardframestyles_id_seq
+CREATE SEQUENCE public.card_frame_styles_id_seq
     AS integer
     START WITH 1
     INCREMENT BY 1
@@ -233,30 +233,30 @@ CREATE SEQUENCE public.cardframestyles_id_seq
 
 
 --
--- Name: cardframestyles_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+-- Name: card_frame_styles_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE public.cardframestyles_id_seq OWNED BY public.cardframestyles.id;
+ALTER SEQUENCE public.card_frame_styles_id_seq OWNED BY public.card_frame_styles.id;
 
 
 --
--- Name: cardgroups; Type: TABLE; Schema: public; Owner: -
+-- Name: card_groups; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public.cardgroups (
+CREATE TABLE public.card_groups (
     id integer NOT NULL,
-    groupcode text NOT NULL,
-    groupname text NOT NULL,
-    dateprinted date,
-    datereleased date
+    group_code text NOT NULL,
+    group_name text NOT NULL,
+    date_printed date,
+    date_released date
 );
 
 
 --
--- Name: cardgroups_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: card_groups_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.cardgroups_id_seq
+CREATE SEQUENCE public.card_groups_id_seq
     AS integer
     START WITH 1
     INCREMENT BY 1
@@ -266,27 +266,27 @@ CREATE SEQUENCE public.cardgroups_id_seq
 
 
 --
--- Name: cardgroups_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+-- Name: card_groups_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE public.cardgroups_id_seq OWNED BY public.cardgroups.id;
+ALTER SEQUENCE public.card_groups_id_seq OWNED BY public.card_groups.id;
 
 
 --
--- Name: cardlayouts; Type: TABLE; Schema: public; Owner: -
+-- Name: card_layouts; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public.cardlayouts (
+CREATE TABLE public.card_layouts (
     id integer NOT NULL,
     layout text NOT NULL
 );
 
 
 --
--- Name: cardlayouts_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: card_layouts_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.cardlayouts_id_seq
+CREATE SEQUENCE public.card_layouts_id_seq
     AS integer
     START WITH 1
     INCREMENT BY 1
@@ -296,27 +296,27 @@ CREATE SEQUENCE public.cardlayouts_id_seq
 
 
 --
--- Name: cardlayouts_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+-- Name: card_layouts_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE public.cardlayouts_id_seq OWNED BY public.cardlayouts.id;
+ALTER SEQUENCE public.card_layouts_id_seq OWNED BY public.card_layouts.id;
 
 
 --
--- Name: cardnames; Type: TABLE; Schema: public; Owner: -
+-- Name: card_names; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public.cardnames (
+CREATE TABLE public.card_names (
     id integer NOT NULL,
     name text NOT NULL
 );
 
 
 --
--- Name: cardnames_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: card_names_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.cardnames_id_seq
+CREATE SEQUENCE public.card_names_id_seq
     AS integer
     START WITH 1
     INCREMENT BY 1
@@ -326,28 +326,28 @@ CREATE SEQUENCE public.cardnames_id_seq
 
 
 --
--- Name: cardnames_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+-- Name: card_names_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE public.cardnames_id_seq OWNED BY public.cardnames.id;
+ALTER SEQUENCE public.card_names_id_seq OWNED BY public.card_names.id;
 
 
 --
--- Name: cardprintfaces; Type: TABLE; Schema: public; Owner: -
+-- Name: card_print_faces; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public.cardprintfaces (
+CREATE TABLE public.card_print_faces (
     id integer NOT NULL,
-    cardprintid integer NOT NULL,
-    cardfaceid integer NOT NULL
+    card_print_id integer NOT NULL,
+    card_face_id integer NOT NULL
 );
 
 
 --
--- Name: cardprintfaces_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: card_print_faces_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.cardprintfaces_id_seq
+CREATE SEQUENCE public.card_print_faces_id_seq
     AS integer
     START WITH 1
     INCREMENT BY 1
@@ -357,30 +357,30 @@ CREATE SEQUENCE public.cardprintfaces_id_seq
 
 
 --
--- Name: cardprintfaces_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+-- Name: card_print_faces_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE public.cardprintfaces_id_seq OWNED BY public.cardprintfaces.id;
+ALTER SEQUENCE public.card_print_faces_id_seq OWNED BY public.card_print_faces.id;
 
 
 --
--- Name: cardprints; Type: TABLE; Schema: public; Owner: -
+-- Name: card_prints; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public.cardprints (
+CREATE TABLE public.card_prints (
     id integer NOT NULL,
-    printsid text NOT NULL,
-    cardfinishtypeid integer,
-    cardlayoutid integer,
-    cardgroupid integer
+    print_sid text NOT NULL,
+    card_finish_type_id integer,
+    card_layout_id integer,
+    card_group_id integer
 );
 
 
 --
--- Name: cardprints_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: card_prints_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.cardprints_id_seq
+CREATE SEQUENCE public.card_prints_id_seq
     AS integer
     START WITH 1
     INCREMENT BY 1
@@ -390,29 +390,29 @@ CREATE SEQUENCE public.cardprints_id_seq
 
 
 --
--- Name: cardprints_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+-- Name: card_prints_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE public.cardprints_id_seq OWNED BY public.cardprints.id;
+ALTER SEQUENCE public.card_prints_id_seq OWNED BY public.card_prints.id;
 
 
 --
--- Name: cardrarities; Type: TABLE; Schema: public; Owner: -
+-- Name: card_rarities; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public.cardrarities (
+CREATE TABLE public.card_rarities (
     id integer NOT NULL,
-    raritycode text NOT NULL,
-    rarityname text NOT NULL,
-    rarityrank integer NOT NULL
+    rarity_code text NOT NULL,
+    rarity_name text NOT NULL,
+    rarity_rank integer NOT NULL
 );
 
 
 --
--- Name: cardrarities_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: card_rarities_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.cardrarities_id_seq
+CREATE SEQUENCE public.card_rarities_id_seq
     AS integer
     START WITH 1
     INCREMENT BY 1
@@ -422,53 +422,20 @@ CREATE SEQUENCE public.cardrarities_id_seq
 
 
 --
--- Name: cardrarities_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+-- Name: card_rarities_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE public.cardrarities_id_seq OWNED BY public.cardrarities.id;
+ALTER SEQUENCE public.card_rarities_id_seq OWNED BY public.card_rarities.id;
 
 
 --
--- Name: cardsets; Type: TABLE; Schema: public; Owner: -
+-- Name: card_set_types; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public.cardsets (
+CREATE TABLE public.card_set_types (
     id integer NOT NULL,
-    setcode text NOT NULL,
-    setname text NOT NULL,
-    cardsettypeid integer,
-    parentsetid integer
-);
-
-
---
--- Name: cardsets_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE public.cardsets_id_seq
-    AS integer
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: cardsets_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE public.cardsets_id_seq OWNED BY public.cardsets.id;
-
-
---
--- Name: cardsettypes; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE public.cardsettypes (
-    id integer NOT NULL,
-    settypename text NOT NULL,
-    settyperank integer NOT NULL,
+    set_type_name text NOT NULL,
+    set_type_rank integer NOT NULL,
     booster boolean NOT NULL,
     draftable boolean NOT NULL,
     promo boolean NOT NULL
@@ -476,10 +443,10 @@ CREATE TABLE public.cardsettypes (
 
 
 --
--- Name: cardsettypes_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: card_set_types_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.cardsettypes_id_seq
+CREATE SEQUENCE public.card_set_types_id_seq
     AS integer
     START WITH 1
     INCREMENT BY 1
@@ -489,27 +456,60 @@ CREATE SEQUENCE public.cardsettypes_id_seq
 
 
 --
--- Name: cardsettypes_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+-- Name: card_set_types_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE public.cardsettypes_id_seq OWNED BY public.cardsettypes.id;
+ALTER SEQUENCE public.card_set_types_id_seq OWNED BY public.card_set_types.id;
 
 
 --
--- Name: cardspecializations; Type: TABLE; Schema: public; Owner: -
+-- Name: card_sets; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public.cardspecializations (
+CREATE TABLE public.card_sets (
+    id integer NOT NULL,
+    set_code text NOT NULL,
+    set_name text NOT NULL,
+    card_set_type_id integer,
+    parent_set_id integer
+);
+
+
+--
+-- Name: card_sets_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.card_sets_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: card_sets_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.card_sets_id_seq OWNED BY public.card_sets.id;
+
+
+--
+-- Name: card_specializations; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.card_specializations (
     id integer NOT NULL,
     specialization text NOT NULL
 );
 
 
 --
--- Name: cardspecializations_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: card_specializations_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.cardspecializations_id_seq
+CREATE SEQUENCE public.card_specializations_id_seq
     AS integer
     START WITH 1
     INCREMENT BY 1
@@ -519,27 +519,27 @@ CREATE SEQUENCE public.cardspecializations_id_seq
 
 
 --
--- Name: cardspecializations_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+-- Name: card_specializations_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE public.cardspecializations_id_seq OWNED BY public.cardspecializations.id;
+ALTER SEQUENCE public.card_specializations_id_seq OWNED BY public.card_specializations.id;
 
 
 --
--- Name: cardsubtypes; Type: TABLE; Schema: public; Owner: -
+-- Name: card_subtypes; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public.cardsubtypes (
+CREATE TABLE public.card_subtypes (
     id integer NOT NULL,
     subtype text NOT NULL
 );
 
 
 --
--- Name: cardsubtypes_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: card_subtypes_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.cardsubtypes_id_seq
+CREATE SEQUENCE public.card_subtypes_id_seq
     AS integer
     START WITH 1
     INCREMENT BY 1
@@ -549,42 +549,73 @@ CREATE SEQUENCE public.cardsubtypes_id_seq
 
 
 --
--- Name: cardsubtypes_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+-- Name: card_subtypes_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE public.cardsubtypes_id_seq OWNED BY public.cardsubtypes.id;
+ALTER SEQUENCE public.card_subtypes_id_seq OWNED BY public.card_subtypes.id;
 
 
 --
--- Name: cardtemplates; Type: TABLE; Schema: public; Owner: -
+-- Name: card_template_subtypes; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public.cardtemplates (
+CREATE TABLE public.card_template_subtypes (
     id integer NOT NULL,
-    templatesid text NOT NULL,
+    card_template_id integer NOT NULL,
+    card_subtype_id integer NOT NULL
+);
+
+
+--
+-- Name: card_template_subtypes_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.card_template_subtypes_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: card_template_subtypes_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.card_template_subtypes_id_seq OWNED BY public.card_template_subtypes.id;
+
+
+--
+-- Name: card_templates; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.card_templates (
+    id integer NOT NULL,
+    template_sid text NOT NULL,
     pitch integer,
     cost integer,
-    varcost text,
+    cost_var text,
     power integer,
-    varpower text,
+    power_var text,
     defense integer,
-    vardefense text,
+    defense_var text,
     intellect integer,
     life integer,
     handedness integer,
     legendary boolean NOT NULL,
-    cardnameid integer,
-    cardclassid integer,
-    cardtypeid integer,
-    cardspecializationid integer
+    card_name_id integer,
+    card_class_id integer,
+    card_type_id integer,
+    card_specialization_id integer
 );
 
 
 --
--- Name: cardtemplates_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: card_templates_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.cardtemplates_id_seq
+CREATE SEQUENCE public.card_templates_id_seq
     AS integer
     START WITH 1
     INCREMENT BY 1
@@ -594,58 +625,27 @@ CREATE SEQUENCE public.cardtemplates_id_seq
 
 
 --
--- Name: cardtemplates_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+-- Name: card_templates_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE public.cardtemplates_id_seq OWNED BY public.cardtemplates.id;
-
-
---
--- Name: cardtemplatesubtypes; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE public.cardtemplatesubtypes (
-    id integer NOT NULL,
-    cardtemplateid integer NOT NULL,
-    cardsubtypeid integer NOT NULL
-);
+ALTER SEQUENCE public.card_templates_id_seq OWNED BY public.card_templates.id;
 
 
 --
--- Name: cardtemplatesubtypes_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: card_types; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.cardtemplatesubtypes_id_seq
-    AS integer
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: cardtemplatesubtypes_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE public.cardtemplatesubtypes_id_seq OWNED BY public.cardtemplatesubtypes.id;
-
-
---
--- Name: cardtypes; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE public.cardtypes (
+CREATE TABLE public.card_types (
     id integer NOT NULL,
     type text NOT NULL
 );
 
 
 --
--- Name: cardtypes_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: card_types_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.cardtypes_id_seq
+CREATE SEQUENCE public.card_types_id_seq
     AS integer
     START WITH 1
     INCREMENT BY 1
@@ -655,10 +655,10 @@ CREATE SEQUENCE public.cardtypes_id_seq
 
 
 --
--- Name: cardtypes_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+-- Name: card_types_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE public.cardtypes_id_seq OWNED BY public.cardtypes.id;
+ALTER SEQUENCE public.card_types_id_seq OWNED BY public.card_types.id;
 
 
 --
@@ -666,88 +666,84 @@ ALTER SEQUENCE public.cardtypes_id_seq OWNED BY public.cardtypes.id;
 --
 
 CREATE MATERIALIZED VIEW public.mv_cards AS
- SELECT frontprintface.id AS cardid,
-    cardtemplates.id AS templateid,
-    cardtemplates.templatesid,
-    cardtemplates.pitch,
-    cardtemplates.cost,
-    cardtemplates.varcost,
-    cardtemplates.power,
-    cardtemplates.varpower,
-    cardtemplates.defense,
-    cardtemplates.vardefense,
-    cardtemplates.intellect,
-    cardtemplates.life,
-    cardtemplates.handedness,
-    cardtemplates.legendary,
-    cardnames.name,
-    cardclasses.class,
-    cardspecializations.specialization,
-    cardtypes.type,
-    cardsubtypescsv.subtypes_csv,
-    cardfaces.id AS faceid,
-    cardfaces.facesid,
-    cardfaces.setnumber,
-    cardfaces.imagestr,
-    cardfaces.code,
-    cardfaces.rulestext,
-    cardfaces.flavortext,
-    cardfaces.cardtemplateid,
-    cardsets.setcode,
-    cardsets.setname,
-    cardsettypes.settypename,
-    cardsettypes.settyperank,
-    cardsettypes.booster,
-    cardsettypes.draftable,
-    cardsettypes.promo,
-    cardrarities.raritycode,
-    cardrarities.rarityname,
-    cardrarities.rarityrank,
-    cardarttypes.arttypecode,
-    cardarttypes.arttypename,
-    cardarttypes.arttyperank,
-    cardframestyles.framestyle,
-    cardframealtcolors.framealtcolor,
-    cardartists.artistname,
-    cardprints.id AS printid,
-    cardprints.printsid,
-    cardfinishtypes.finishtypecode,
-    cardfinishtypes.finishtypename,
-    cardfinishtypes.finishtyperank,
-    cardlayouts.layout,
-    cardgroups.groupcode,
-    cardgroups.groupname,
-    cardgroups.dateprinted,
-    cardgroups.datereleased,
-    frontprintface.cardfaceid AS frontcardfaceid,
-    backprintface.cardfaceid AS backcardfaceid,
-    backfaces.imagestr AS backfaceimagestr
-   FROM (((((((((((((((((((((public.cardprints
-     JOIN public.cardprintfaces frontprintface ON ((frontprintface.cardprintid = cardprints.id)))
-     LEFT JOIN public.cardprintfaces backprintface ON (((backprintface.cardprintid = frontprintface.cardprintid) AND (backprintface.id <> frontprintface.id))))
-     JOIN public.cardfaces ON ((cardfaces.id = frontprintface.cardfaceid)))
-     JOIN public.cardfaces backfaces ON ((backfaces.id = backprintface.cardfaceid)))
-     JOIN public.cardtemplates ON ((cardtemplates.id = cardfaces.cardtemplateid)))
-     LEFT JOIN public.cardnames ON ((cardnames.id = cardtemplates.cardnameid)))
-     LEFT JOIN public.cardclasses ON ((cardclasses.id = cardtemplates.cardclassid)))
-     LEFT JOIN public.cardspecializations ON ((cardspecializations.id = cardtemplates.cardspecializationid)))
-     LEFT JOIN public.cardtypes ON ((cardtypes.id = cardtemplates.cardtypeid)))
-     LEFT JOIN public.cardtemplatesubtypes ON ((cardtemplatesubtypes.cardtemplateid = cardtemplates.id)))
-     LEFT JOIN ( SELECT cardtemplatesubtypes_1.cardtemplateid,
-            array_agg(cardsubtypes.subtype) AS subtypes_csv
-           FROM (public.cardtemplatesubtypes cardtemplatesubtypes_1
-             LEFT JOIN public.cardsubtypes ON ((cardsubtypes.id = cardtemplatesubtypes_1.cardsubtypeid)))
-          GROUP BY cardtemplatesubtypes_1.cardtemplateid) cardsubtypescsv ON ((cardsubtypescsv.cardtemplateid = cardtemplates.id)))
-     LEFT JOIN public.cardsets ON ((cardsets.id = cardfaces.cardsetid)))
-     LEFT JOIN public.cardsettypes ON ((cardsettypes.id = cardsets.cardsettypeid)))
-     LEFT JOIN public.cardrarities ON ((cardrarities.id = cardfaces.cardrarityid)))
-     LEFT JOIN public.cardarttypes ON ((cardarttypes.id = cardfaces.cardarttypeid)))
-     LEFT JOIN public.cardframestyles ON ((cardframestyles.id = cardfaces.cardframestyleid)))
-     LEFT JOIN public.cardframealtcolors ON ((cardframealtcolors.id = cardfaces.cardframealtcolorid)))
-     LEFT JOIN public.cardartists ON ((cardartists.id = cardfaces.cardartistid)))
-     LEFT JOIN public.cardfinishtypes ON ((cardfinishtypes.id = cardprints.cardfinishtypeid)))
-     LEFT JOIN public.cardlayouts ON ((cardlayouts.id = cardprints.cardlayoutid)))
-     LEFT JOIN public.cardgroups ON ((cardgroups.id = cardprints.cardgroupid)))
+ SELECT front_print_face.id AS card_id,
+    card_templates.id AS template_id,
+    card_templates.template_sid,
+    card_templates.pitch,
+    card_templates.cost,
+    card_templates.cost_var,
+    card_templates.power,
+    card_templates.power_var,
+    card_templates.defense,
+    card_templates.defense_var,
+    card_templates.intellect,
+    card_templates.life,
+    card_templates.handedness,
+    card_templates.legendary,
+    card_names.name,
+    card_classes.class,
+    card_specializations.specialization,
+    card_types.type,
+    card_subtypes_arr.subtypes_arr,
+    card_faces.id AS face_id,
+    card_faces.face_sid,
+    card_faces.set_number,
+    card_faces.image_str,
+    card_faces.code,
+    card_faces.rules_text,
+    card_faces.flavor_text,
+    card_faces.card_template_id,
+    card_sets.set_code,
+    card_sets.set_name,
+    card_set_types.set_type_name,
+    card_set_types.booster,
+    card_set_types.draftable,
+    card_set_types.promo,
+    card_rarities.rarity_code,
+    card_rarities.rarity_name,
+    card_art_types.art_type_code,
+    card_art_types.art_type_name,
+    card_frame_styles.frame_style,
+    card_frame_colors.frame_color,
+    card_artists.artist_name,
+    card_prints.id AS print_id,
+    card_prints.print_sid,
+    card_finish_types.finish_type_code,
+    card_finish_types.finish_type_name,
+    card_layouts.layout,
+    card_groups.group_code,
+    card_groups.group_name,
+    card_groups.date_printed,
+    card_groups.date_released,
+    back_print_face.card_face_id AS back_card_face_id,
+    back_faces.image_str AS back_face_image_str,
+    row_number() OVER (PARTITION BY card_templates.id ORDER BY card_set_types.booster DESC, card_groups.date_released DESC, card_set_types.set_type_rank, card_finish_types.finish_type_rank, card_art_types.art_type_rank) AS template_rank
+   FROM (((((((((((((((((((((public.card_prints
+     JOIN public.card_print_faces front_print_face ON ((front_print_face.card_print_id = card_prints.id)))
+     LEFT JOIN public.card_print_faces back_print_face ON (((back_print_face.card_print_id = front_print_face.card_print_id) AND (back_print_face.id <> front_print_face.id))))
+     JOIN public.card_faces ON ((card_faces.id = front_print_face.card_face_id)))
+     LEFT JOIN public.card_faces back_faces ON ((back_faces.id = back_print_face.card_face_id)))
+     JOIN public.card_templates ON ((card_templates.id = card_faces.card_template_id)))
+     LEFT JOIN public.card_names ON ((card_names.id = card_templates.card_name_id)))
+     LEFT JOIN public.card_classes ON ((card_classes.id = card_templates.card_class_id)))
+     LEFT JOIN public.card_specializations ON ((card_specializations.id = card_templates.card_specialization_id)))
+     LEFT JOIN public.card_types ON ((card_types.id = card_templates.card_type_id)))
+     LEFT JOIN public.card_template_subtypes ON ((card_template_subtypes.card_template_id = card_templates.id)))
+     LEFT JOIN ( SELECT card_template_subtypes_1.card_template_id,
+            array_agg(card_subtypes.subtype) AS subtypes_arr
+           FROM (public.card_template_subtypes card_template_subtypes_1
+             LEFT JOIN public.card_subtypes ON ((card_subtypes.id = card_template_subtypes_1.card_subtype_id)))
+          GROUP BY card_template_subtypes_1.card_template_id) card_subtypes_arr ON ((card_subtypes_arr.card_template_id = card_templates.id)))
+     LEFT JOIN public.card_sets ON ((card_sets.id = card_faces.card_set_id)))
+     LEFT JOIN public.card_set_types ON ((card_set_types.id = card_sets.card_set_type_id)))
+     LEFT JOIN public.card_rarities ON ((card_rarities.id = card_faces.card_rarity_id)))
+     LEFT JOIN public.card_art_types ON ((card_art_types.id = card_faces.card_art_type_id)))
+     LEFT JOIN public.card_frame_styles ON ((card_frame_styles.id = card_faces.card_frame_style_id)))
+     LEFT JOIN public.card_frame_colors ON ((card_frame_colors.id = card_faces.card_frame_color_id)))
+     LEFT JOIN public.card_artists ON ((card_artists.id = card_faces.card_artist_id)))
+     LEFT JOIN public.card_finish_types ON ((card_finish_types.id = card_prints.card_finish_type_id)))
+     LEFT JOIN public.card_layouts ON ((card_layouts.id = card_prints.card_layout_id)))
+     LEFT JOIN public.card_groups ON ((card_groups.id = card_prints.card_group_id)))
   WITH NO DATA;
 
 
@@ -756,16 +752,16 @@ CREATE MATERIALIZED VIEW public.mv_cards AS
 --
 
 CREATE MATERIALIZED VIEW public.mv_cardsets AS
- SELECT cardsets.id AS setid,
-    cardsets.setcode,
-    cardsets.setname,
-    cardsettypes.settypename,
-    cardsettypes.settyperank,
-    cardsettypes.booster,
-    cardsettypes.draftable,
-    cardsettypes.promo
-   FROM (public.cardsets
-     LEFT JOIN public.cardsettypes ON ((cardsettypes.id = cardsets.cardsettypeid)))
+ SELECT card_sets.id AS set_id,
+    card_sets.set_code,
+    card_sets.set_name,
+    card_set_types.set_type_name,
+    card_set_types.set_type_rank,
+    card_set_types.booster,
+    card_set_types.draftable,
+    card_set_types.promo
+   FROM (public.card_sets
+     LEFT JOIN public.card_set_types ON ((card_set_types.id = card_sets.card_set_type_id)))
   WITH NO DATA;
 
 
@@ -779,519 +775,519 @@ CREATE TABLE public.schema_migrations (
 
 
 --
--- Name: cardartists id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: card_art_types id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.cardartists ALTER COLUMN id SET DEFAULT nextval('public.cardartists_id_seq'::regclass);
+ALTER TABLE ONLY public.card_art_types ALTER COLUMN id SET DEFAULT nextval('public.card_art_types_id_seq'::regclass);
 
 
 --
--- Name: cardarttypes id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: card_artists id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.cardarttypes ALTER COLUMN id SET DEFAULT nextval('public.cardarttypes_id_seq'::regclass);
+ALTER TABLE ONLY public.card_artists ALTER COLUMN id SET DEFAULT nextval('public.card_artists_id_seq'::regclass);
 
 
 --
--- Name: cardclasses id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: card_classes id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.cardclasses ALTER COLUMN id SET DEFAULT nextval('public.cardclasses_id_seq'::regclass);
+ALTER TABLE ONLY public.card_classes ALTER COLUMN id SET DEFAULT nextval('public.card_classes_id_seq'::regclass);
 
 
 --
--- Name: cardfaces id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: card_faces id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.cardfaces ALTER COLUMN id SET DEFAULT nextval('public.cardfaces_id_seq'::regclass);
+ALTER TABLE ONLY public.card_faces ALTER COLUMN id SET DEFAULT nextval('public.card_faces_id_seq'::regclass);
 
 
 --
--- Name: cardfinishtypes id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: card_finish_types id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.cardfinishtypes ALTER COLUMN id SET DEFAULT nextval('public.cardfinishtypes_id_seq'::regclass);
+ALTER TABLE ONLY public.card_finish_types ALTER COLUMN id SET DEFAULT nextval('public.card_finish_types_id_seq'::regclass);
 
 
 --
--- Name: cardframealtcolors id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: card_frame_colors id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.cardframealtcolors ALTER COLUMN id SET DEFAULT nextval('public.cardframealtcolors_id_seq'::regclass);
+ALTER TABLE ONLY public.card_frame_colors ALTER COLUMN id SET DEFAULT nextval('public.card_frame_colors_id_seq'::regclass);
 
 
 --
--- Name: cardframestyles id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: card_frame_styles id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.cardframestyles ALTER COLUMN id SET DEFAULT nextval('public.cardframestyles_id_seq'::regclass);
+ALTER TABLE ONLY public.card_frame_styles ALTER COLUMN id SET DEFAULT nextval('public.card_frame_styles_id_seq'::regclass);
 
 
 --
--- Name: cardgroups id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: card_groups id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.cardgroups ALTER COLUMN id SET DEFAULT nextval('public.cardgroups_id_seq'::regclass);
+ALTER TABLE ONLY public.card_groups ALTER COLUMN id SET DEFAULT nextval('public.card_groups_id_seq'::regclass);
 
 
 --
--- Name: cardlayouts id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: card_layouts id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.cardlayouts ALTER COLUMN id SET DEFAULT nextval('public.cardlayouts_id_seq'::regclass);
+ALTER TABLE ONLY public.card_layouts ALTER COLUMN id SET DEFAULT nextval('public.card_layouts_id_seq'::regclass);
 
 
 --
--- Name: cardnames id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: card_names id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.cardnames ALTER COLUMN id SET DEFAULT nextval('public.cardnames_id_seq'::regclass);
+ALTER TABLE ONLY public.card_names ALTER COLUMN id SET DEFAULT nextval('public.card_names_id_seq'::regclass);
 
 
 --
--- Name: cardprintfaces id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: card_print_faces id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.cardprintfaces ALTER COLUMN id SET DEFAULT nextval('public.cardprintfaces_id_seq'::regclass);
+ALTER TABLE ONLY public.card_print_faces ALTER COLUMN id SET DEFAULT nextval('public.card_print_faces_id_seq'::regclass);
 
 
 --
--- Name: cardprints id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: card_prints id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.cardprints ALTER COLUMN id SET DEFAULT nextval('public.cardprints_id_seq'::regclass);
+ALTER TABLE ONLY public.card_prints ALTER COLUMN id SET DEFAULT nextval('public.card_prints_id_seq'::regclass);
 
 
 --
--- Name: cardrarities id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: card_rarities id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.cardrarities ALTER COLUMN id SET DEFAULT nextval('public.cardrarities_id_seq'::regclass);
+ALTER TABLE ONLY public.card_rarities ALTER COLUMN id SET DEFAULT nextval('public.card_rarities_id_seq'::regclass);
 
 
 --
--- Name: cardsets id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: card_set_types id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.cardsets ALTER COLUMN id SET DEFAULT nextval('public.cardsets_id_seq'::regclass);
+ALTER TABLE ONLY public.card_set_types ALTER COLUMN id SET DEFAULT nextval('public.card_set_types_id_seq'::regclass);
 
 
 --
--- Name: cardsettypes id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: card_sets id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.cardsettypes ALTER COLUMN id SET DEFAULT nextval('public.cardsettypes_id_seq'::regclass);
+ALTER TABLE ONLY public.card_sets ALTER COLUMN id SET DEFAULT nextval('public.card_sets_id_seq'::regclass);
 
 
 --
--- Name: cardspecializations id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: card_specializations id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.cardspecializations ALTER COLUMN id SET DEFAULT nextval('public.cardspecializations_id_seq'::regclass);
+ALTER TABLE ONLY public.card_specializations ALTER COLUMN id SET DEFAULT nextval('public.card_specializations_id_seq'::regclass);
 
 
 --
--- Name: cardsubtypes id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: card_subtypes id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.cardsubtypes ALTER COLUMN id SET DEFAULT nextval('public.cardsubtypes_id_seq'::regclass);
+ALTER TABLE ONLY public.card_subtypes ALTER COLUMN id SET DEFAULT nextval('public.card_subtypes_id_seq'::regclass);
 
 
 --
--- Name: cardtemplates id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: card_template_subtypes id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.cardtemplates ALTER COLUMN id SET DEFAULT nextval('public.cardtemplates_id_seq'::regclass);
+ALTER TABLE ONLY public.card_template_subtypes ALTER COLUMN id SET DEFAULT nextval('public.card_template_subtypes_id_seq'::regclass);
 
 
 --
--- Name: cardtemplatesubtypes id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: card_templates id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.cardtemplatesubtypes ALTER COLUMN id SET DEFAULT nextval('public.cardtemplatesubtypes_id_seq'::regclass);
+ALTER TABLE ONLY public.card_templates ALTER COLUMN id SET DEFAULT nextval('public.card_templates_id_seq'::regclass);
 
 
 --
--- Name: cardtypes id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: card_types id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.cardtypes ALTER COLUMN id SET DEFAULT nextval('public.cardtypes_id_seq'::regclass);
+ALTER TABLE ONLY public.card_types ALTER COLUMN id SET DEFAULT nextval('public.card_types_id_seq'::regclass);
 
 
 --
--- Name: cardartists cardartists_artistname_key; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: card_art_types card_art_types_art_type_code_key; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.cardartists
-    ADD CONSTRAINT cardartists_artistname_key UNIQUE (artistname);
+ALTER TABLE ONLY public.card_art_types
+    ADD CONSTRAINT card_art_types_art_type_code_key UNIQUE (art_type_code);
 
 
 --
--- Name: cardartists cardartists_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: card_art_types card_art_types_art_type_name_key; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.cardartists
-    ADD CONSTRAINT cardartists_pkey PRIMARY KEY (id);
+ALTER TABLE ONLY public.card_art_types
+    ADD CONSTRAINT card_art_types_art_type_name_key UNIQUE (art_type_name);
 
 
 --
--- Name: cardarttypes cardarttypes_arttypecode_key; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: card_art_types card_art_types_art_type_rank_key; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.cardarttypes
-    ADD CONSTRAINT cardarttypes_arttypecode_key UNIQUE (arttypecode);
+ALTER TABLE ONLY public.card_art_types
+    ADD CONSTRAINT card_art_types_art_type_rank_key UNIQUE (art_type_rank);
 
 
 --
--- Name: cardarttypes cardarttypes_arttypename_key; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: card_art_types card_art_types_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.cardarttypes
-    ADD CONSTRAINT cardarttypes_arttypename_key UNIQUE (arttypename);
+ALTER TABLE ONLY public.card_art_types
+    ADD CONSTRAINT card_art_types_pkey PRIMARY KEY (id);
 
 
 --
--- Name: cardarttypes cardarttypes_arttyperank_key; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: card_artists card_artists_artist_name_key; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.cardarttypes
-    ADD CONSTRAINT cardarttypes_arttyperank_key UNIQUE (arttyperank);
+ALTER TABLE ONLY public.card_artists
+    ADD CONSTRAINT card_artists_artist_name_key UNIQUE (artist_name);
 
 
 --
--- Name: cardarttypes cardarttypes_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: card_artists card_artists_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.cardarttypes
-    ADD CONSTRAINT cardarttypes_pkey PRIMARY KEY (id);
+ALTER TABLE ONLY public.card_artists
+    ADD CONSTRAINT card_artists_pkey PRIMARY KEY (id);
 
 
 --
--- Name: cardclasses cardclasses_class_key; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: card_classes card_classes_class_key; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.cardclasses
-    ADD CONSTRAINT cardclasses_class_key UNIQUE (class);
+ALTER TABLE ONLY public.card_classes
+    ADD CONSTRAINT card_classes_class_key UNIQUE (class);
 
 
 --
--- Name: cardclasses cardclasses_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: card_classes card_classes_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.cardclasses
-    ADD CONSTRAINT cardclasses_pkey PRIMARY KEY (id);
+ALTER TABLE ONLY public.card_classes
+    ADD CONSTRAINT card_classes_pkey PRIMARY KEY (id);
 
 
 --
--- Name: cardfaces cardfaces_facesid_key; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: card_faces card_faces_face_sid_key; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.cardfaces
-    ADD CONSTRAINT cardfaces_facesid_key UNIQUE (facesid);
+ALTER TABLE ONLY public.card_faces
+    ADD CONSTRAINT card_faces_face_sid_key UNIQUE (face_sid);
 
 
 --
--- Name: cardfaces cardfaces_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: card_faces card_faces_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.cardfaces
-    ADD CONSTRAINT cardfaces_pkey PRIMARY KEY (id);
+ALTER TABLE ONLY public.card_faces
+    ADD CONSTRAINT card_faces_pkey PRIMARY KEY (id);
 
 
 --
--- Name: cardfinishtypes cardfinishtypes_finishtypecode_key; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: card_finish_types card_finish_types_finish_type_code_key; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.cardfinishtypes
-    ADD CONSTRAINT cardfinishtypes_finishtypecode_key UNIQUE (finishtypecode);
+ALTER TABLE ONLY public.card_finish_types
+    ADD CONSTRAINT card_finish_types_finish_type_code_key UNIQUE (finish_type_code);
 
 
 --
--- Name: cardfinishtypes cardfinishtypes_finishtypename_key; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: card_finish_types card_finish_types_finish_type_name_key; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.cardfinishtypes
-    ADD CONSTRAINT cardfinishtypes_finishtypename_key UNIQUE (finishtypename);
+ALTER TABLE ONLY public.card_finish_types
+    ADD CONSTRAINT card_finish_types_finish_type_name_key UNIQUE (finish_type_name);
 
 
 --
--- Name: cardfinishtypes cardfinishtypes_finishtyperank_key; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: card_finish_types card_finish_types_finish_type_rank_key; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.cardfinishtypes
-    ADD CONSTRAINT cardfinishtypes_finishtyperank_key UNIQUE (finishtyperank);
+ALTER TABLE ONLY public.card_finish_types
+    ADD CONSTRAINT card_finish_types_finish_type_rank_key UNIQUE (finish_type_rank);
 
 
 --
--- Name: cardfinishtypes cardfinishtypes_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: card_finish_types card_finish_types_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.cardfinishtypes
-    ADD CONSTRAINT cardfinishtypes_pkey PRIMARY KEY (id);
+ALTER TABLE ONLY public.card_finish_types
+    ADD CONSTRAINT card_finish_types_pkey PRIMARY KEY (id);
 
 
 --
--- Name: cardframealtcolors cardframealtcolors_framealtcolor_key; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: card_frame_colors card_frame_colors_frame_color_key; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.cardframealtcolors
-    ADD CONSTRAINT cardframealtcolors_framealtcolor_key UNIQUE (framealtcolor);
+ALTER TABLE ONLY public.card_frame_colors
+    ADD CONSTRAINT card_frame_colors_frame_color_key UNIQUE (frame_color);
 
 
 --
--- Name: cardframealtcolors cardframealtcolors_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: card_frame_colors card_frame_colors_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.cardframealtcolors
-    ADD CONSTRAINT cardframealtcolors_pkey PRIMARY KEY (id);
+ALTER TABLE ONLY public.card_frame_colors
+    ADD CONSTRAINT card_frame_colors_pkey PRIMARY KEY (id);
 
 
 --
--- Name: cardframestyles cardframestyles_framestyle_key; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: card_frame_styles card_frame_styles_frame_style_key; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.cardframestyles
-    ADD CONSTRAINT cardframestyles_framestyle_key UNIQUE (framestyle);
+ALTER TABLE ONLY public.card_frame_styles
+    ADD CONSTRAINT card_frame_styles_frame_style_key UNIQUE (frame_style);
 
 
 --
--- Name: cardframestyles cardframestyles_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: card_frame_styles card_frame_styles_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.cardframestyles
-    ADD CONSTRAINT cardframestyles_pkey PRIMARY KEY (id);
+ALTER TABLE ONLY public.card_frame_styles
+    ADD CONSTRAINT card_frame_styles_pkey PRIMARY KEY (id);
 
 
 --
--- Name: cardgroups cardgroups_groupcode_key; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: card_groups card_groups_group_code_key; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.cardgroups
-    ADD CONSTRAINT cardgroups_groupcode_key UNIQUE (groupcode);
+ALTER TABLE ONLY public.card_groups
+    ADD CONSTRAINT card_groups_group_code_key UNIQUE (group_code);
 
 
 --
--- Name: cardgroups cardgroups_groupname_key; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: card_groups card_groups_group_name_key; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.cardgroups
-    ADD CONSTRAINT cardgroups_groupname_key UNIQUE (groupname);
+ALTER TABLE ONLY public.card_groups
+    ADD CONSTRAINT card_groups_group_name_key UNIQUE (group_name);
 
 
 --
--- Name: cardgroups cardgroups_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: card_groups card_groups_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.cardgroups
-    ADD CONSTRAINT cardgroups_pkey PRIMARY KEY (id);
+ALTER TABLE ONLY public.card_groups
+    ADD CONSTRAINT card_groups_pkey PRIMARY KEY (id);
 
 
 --
--- Name: cardlayouts cardlayouts_layout_key; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: card_layouts card_layouts_layout_key; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.cardlayouts
-    ADD CONSTRAINT cardlayouts_layout_key UNIQUE (layout);
+ALTER TABLE ONLY public.card_layouts
+    ADD CONSTRAINT card_layouts_layout_key UNIQUE (layout);
 
 
 --
--- Name: cardlayouts cardlayouts_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: card_layouts card_layouts_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.cardlayouts
-    ADD CONSTRAINT cardlayouts_pkey PRIMARY KEY (id);
+ALTER TABLE ONLY public.card_layouts
+    ADD CONSTRAINT card_layouts_pkey PRIMARY KEY (id);
 
 
 --
--- Name: cardnames cardnames_name_key; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: card_names card_names_name_key; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.cardnames
-    ADD CONSTRAINT cardnames_name_key UNIQUE (name);
+ALTER TABLE ONLY public.card_names
+    ADD CONSTRAINT card_names_name_key UNIQUE (name);
 
 
 --
--- Name: cardnames cardnames_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: card_names card_names_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.cardnames
-    ADD CONSTRAINT cardnames_pkey PRIMARY KEY (id);
+ALTER TABLE ONLY public.card_names
+    ADD CONSTRAINT card_names_pkey PRIMARY KEY (id);
 
 
 --
--- Name: cardprintfaces cardprintfaces_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: card_print_faces card_print_faces_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.cardprintfaces
-    ADD CONSTRAINT cardprintfaces_pkey PRIMARY KEY (id);
+ALTER TABLE ONLY public.card_print_faces
+    ADD CONSTRAINT card_print_faces_pkey PRIMARY KEY (id);
 
 
 --
--- Name: cardprints cardprints_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: card_prints card_prints_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.cardprints
-    ADD CONSTRAINT cardprints_pkey PRIMARY KEY (id);
+ALTER TABLE ONLY public.card_prints
+    ADD CONSTRAINT card_prints_pkey PRIMARY KEY (id);
 
 
 --
--- Name: cardprints cardprints_printsid_key; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: card_prints card_prints_print_sid_key; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.cardprints
-    ADD CONSTRAINT cardprints_printsid_key UNIQUE (printsid);
+ALTER TABLE ONLY public.card_prints
+    ADD CONSTRAINT card_prints_print_sid_key UNIQUE (print_sid);
 
 
 --
--- Name: cardrarities cardrarities_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: card_rarities card_rarities_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.cardrarities
-    ADD CONSTRAINT cardrarities_pkey PRIMARY KEY (id);
+ALTER TABLE ONLY public.card_rarities
+    ADD CONSTRAINT card_rarities_pkey PRIMARY KEY (id);
 
 
 --
--- Name: cardrarities cardrarities_raritycode_key; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: card_rarities card_rarities_rarity_code_key; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.cardrarities
-    ADD CONSTRAINT cardrarities_raritycode_key UNIQUE (raritycode);
+ALTER TABLE ONLY public.card_rarities
+    ADD CONSTRAINT card_rarities_rarity_code_key UNIQUE (rarity_code);
 
 
 --
--- Name: cardrarities cardrarities_rarityname_key; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: card_rarities card_rarities_rarity_name_key; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.cardrarities
-    ADD CONSTRAINT cardrarities_rarityname_key UNIQUE (rarityname);
+ALTER TABLE ONLY public.card_rarities
+    ADD CONSTRAINT card_rarities_rarity_name_key UNIQUE (rarity_name);
 
 
 --
--- Name: cardrarities cardrarities_rarityrank_key; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: card_rarities card_rarities_rarity_rank_key; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.cardrarities
-    ADD CONSTRAINT cardrarities_rarityrank_key UNIQUE (rarityrank);
+ALTER TABLE ONLY public.card_rarities
+    ADD CONSTRAINT card_rarities_rarity_rank_key UNIQUE (rarity_rank);
 
 
 --
--- Name: cardsets cardsets_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: card_set_types card_set_types_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.cardsets
-    ADD CONSTRAINT cardsets_pkey PRIMARY KEY (id);
+ALTER TABLE ONLY public.card_set_types
+    ADD CONSTRAINT card_set_types_pkey PRIMARY KEY (id);
 
 
 --
--- Name: cardsets cardsets_setcode_key; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: card_set_types card_set_types_set_type_name_key; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.cardsets
-    ADD CONSTRAINT cardsets_setcode_key UNIQUE (setcode);
+ALTER TABLE ONLY public.card_set_types
+    ADD CONSTRAINT card_set_types_set_type_name_key UNIQUE (set_type_name);
 
 
 --
--- Name: cardsets cardsets_setname_key; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: card_set_types card_set_types_set_type_rank_key; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.cardsets
-    ADD CONSTRAINT cardsets_setname_key UNIQUE (setname);
+ALTER TABLE ONLY public.card_set_types
+    ADD CONSTRAINT card_set_types_set_type_rank_key UNIQUE (set_type_rank);
 
 
 --
--- Name: cardsettypes cardsettypes_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: card_sets card_sets_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.cardsettypes
-    ADD CONSTRAINT cardsettypes_pkey PRIMARY KEY (id);
+ALTER TABLE ONLY public.card_sets
+    ADD CONSTRAINT card_sets_pkey PRIMARY KEY (id);
 
 
 --
--- Name: cardsettypes cardsettypes_settypename_key; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: card_sets card_sets_set_code_key; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.cardsettypes
-    ADD CONSTRAINT cardsettypes_settypename_key UNIQUE (settypename);
+ALTER TABLE ONLY public.card_sets
+    ADD CONSTRAINT card_sets_set_code_key UNIQUE (set_code);
 
 
 --
--- Name: cardsettypes cardsettypes_settyperank_key; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: card_sets card_sets_set_name_key; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.cardsettypes
-    ADD CONSTRAINT cardsettypes_settyperank_key UNIQUE (settyperank);
+ALTER TABLE ONLY public.card_sets
+    ADD CONSTRAINT card_sets_set_name_key UNIQUE (set_name);
 
 
 --
--- Name: cardspecializations cardspecializations_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: card_specializations card_specializations_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.cardspecializations
-    ADD CONSTRAINT cardspecializations_pkey PRIMARY KEY (id);
+ALTER TABLE ONLY public.card_specializations
+    ADD CONSTRAINT card_specializations_pkey PRIMARY KEY (id);
 
 
 --
--- Name: cardspecializations cardspecializations_specialization_key; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: card_specializations card_specializations_specialization_key; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.cardspecializations
-    ADD CONSTRAINT cardspecializations_specialization_key UNIQUE (specialization);
+ALTER TABLE ONLY public.card_specializations
+    ADD CONSTRAINT card_specializations_specialization_key UNIQUE (specialization);
 
 
 --
--- Name: cardsubtypes cardsubtypes_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: card_subtypes card_subtypes_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.cardsubtypes
-    ADD CONSTRAINT cardsubtypes_pkey PRIMARY KEY (id);
+ALTER TABLE ONLY public.card_subtypes
+    ADD CONSTRAINT card_subtypes_pkey PRIMARY KEY (id);
 
 
 --
--- Name: cardsubtypes cardsubtypes_subtype_key; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: card_subtypes card_subtypes_subtype_key; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.cardsubtypes
-    ADD CONSTRAINT cardsubtypes_subtype_key UNIQUE (subtype);
+ALTER TABLE ONLY public.card_subtypes
+    ADD CONSTRAINT card_subtypes_subtype_key UNIQUE (subtype);
 
 
 --
--- Name: cardtemplates cardtemplates_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: card_template_subtypes card_template_subtypes_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.cardtemplates
-    ADD CONSTRAINT cardtemplates_pkey PRIMARY KEY (id);
+ALTER TABLE ONLY public.card_template_subtypes
+    ADD CONSTRAINT card_template_subtypes_pkey PRIMARY KEY (id);
 
 
 --
--- Name: cardtemplates cardtemplates_templatesid_key; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: card_templates card_templates_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.cardtemplates
-    ADD CONSTRAINT cardtemplates_templatesid_key UNIQUE (templatesid);
+ALTER TABLE ONLY public.card_templates
+    ADD CONSTRAINT card_templates_pkey PRIMARY KEY (id);
 
 
 --
--- Name: cardtemplatesubtypes cardtemplatesubtypes_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: card_templates card_templates_template_sid_key; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.cardtemplatesubtypes
-    ADD CONSTRAINT cardtemplatesubtypes_pkey PRIMARY KEY (id);
+ALTER TABLE ONLY public.card_templates
+    ADD CONSTRAINT card_templates_template_sid_key UNIQUE (template_sid);
 
 
 --
--- Name: cardtypes cardtypes_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: card_types card_types_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.cardtypes
-    ADD CONSTRAINT cardtypes_pkey PRIMARY KEY (id);
+ALTER TABLE ONLY public.card_types
+    ADD CONSTRAINT card_types_pkey PRIMARY KEY (id);
 
 
 --
--- Name: cardtypes cardtypes_type_key; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: card_types card_types_type_key; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.cardtypes
-    ADD CONSTRAINT cardtypes_type_key UNIQUE (type);
+ALTER TABLE ONLY public.card_types
+    ADD CONSTRAINT card_types_type_key UNIQUE (type);
 
 
 --
@@ -1303,163 +1299,163 @@ ALTER TABLE ONLY public.schema_migrations
 
 
 --
--- Name: cardfaces cardfaces_cardartistid_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: card_faces card_faces_card_art_type_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.cardfaces
-    ADD CONSTRAINT cardfaces_cardartistid_fkey FOREIGN KEY (cardartistid) REFERENCES public.cardartists(id);
-
-
---
--- Name: cardfaces cardfaces_cardarttypeid_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.cardfaces
-    ADD CONSTRAINT cardfaces_cardarttypeid_fkey FOREIGN KEY (cardarttypeid) REFERENCES public.cardarttypes(id);
+ALTER TABLE ONLY public.card_faces
+    ADD CONSTRAINT card_faces_card_art_type_id_fkey FOREIGN KEY (card_art_type_id) REFERENCES public.card_art_types(id);
 
 
 --
--- Name: cardfaces cardfaces_cardframealtcolorid_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: card_faces card_faces_card_artist_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.cardfaces
-    ADD CONSTRAINT cardfaces_cardframealtcolorid_fkey FOREIGN KEY (cardframealtcolorid) REFERENCES public.cardframealtcolors(id);
-
-
---
--- Name: cardfaces cardfaces_cardframestyleid_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.cardfaces
-    ADD CONSTRAINT cardfaces_cardframestyleid_fkey FOREIGN KEY (cardframestyleid) REFERENCES public.cardframestyles(id);
+ALTER TABLE ONLY public.card_faces
+    ADD CONSTRAINT card_faces_card_artist_id_fkey FOREIGN KEY (card_artist_id) REFERENCES public.card_artists(id);
 
 
 --
--- Name: cardfaces cardfaces_cardrarityid_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: card_faces card_faces_card_frame_color_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.cardfaces
-    ADD CONSTRAINT cardfaces_cardrarityid_fkey FOREIGN KEY (cardrarityid) REFERENCES public.cardrarities(id);
-
-
---
--- Name: cardfaces cardfaces_cardsetid_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.cardfaces
-    ADD CONSTRAINT cardfaces_cardsetid_fkey FOREIGN KEY (cardsetid) REFERENCES public.cardsets(id);
+ALTER TABLE ONLY public.card_faces
+    ADD CONSTRAINT card_faces_card_frame_color_id_fkey FOREIGN KEY (card_frame_color_id) REFERENCES public.card_frame_colors(id);
 
 
 --
--- Name: cardfaces cardfaces_cardtemplateid_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: card_faces card_faces_card_frame_style_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.cardfaces
-    ADD CONSTRAINT cardfaces_cardtemplateid_fkey FOREIGN KEY (cardtemplateid) REFERENCES public.cardtemplates(id);
-
-
---
--- Name: cardprintfaces cardprintfaces_cardfaceid_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.cardprintfaces
-    ADD CONSTRAINT cardprintfaces_cardfaceid_fkey FOREIGN KEY (cardfaceid) REFERENCES public.cardfaces(id);
+ALTER TABLE ONLY public.card_faces
+    ADD CONSTRAINT card_faces_card_frame_style_id_fkey FOREIGN KEY (card_frame_style_id) REFERENCES public.card_frame_styles(id);
 
 
 --
--- Name: cardprintfaces cardprintfaces_cardprintid_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: card_faces card_faces_card_rarity_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.cardprintfaces
-    ADD CONSTRAINT cardprintfaces_cardprintid_fkey FOREIGN KEY (cardprintid) REFERENCES public.cardprints(id);
-
-
---
--- Name: cardprints cardprints_cardfinishtypeid_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.cardprints
-    ADD CONSTRAINT cardprints_cardfinishtypeid_fkey FOREIGN KEY (cardfinishtypeid) REFERENCES public.cardfinishtypes(id);
+ALTER TABLE ONLY public.card_faces
+    ADD CONSTRAINT card_faces_card_rarity_id_fkey FOREIGN KEY (card_rarity_id) REFERENCES public.card_rarities(id);
 
 
 --
--- Name: cardprints cardprints_cardgroupid_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: card_faces card_faces_card_set_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.cardprints
-    ADD CONSTRAINT cardprints_cardgroupid_fkey FOREIGN KEY (cardgroupid) REFERENCES public.cardgroups(id);
-
-
---
--- Name: cardprints cardprints_cardlayoutid_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.cardprints
-    ADD CONSTRAINT cardprints_cardlayoutid_fkey FOREIGN KEY (cardlayoutid) REFERENCES public.cardlayouts(id);
+ALTER TABLE ONLY public.card_faces
+    ADD CONSTRAINT card_faces_card_set_id_fkey FOREIGN KEY (card_set_id) REFERENCES public.card_sets(id);
 
 
 --
--- Name: cardsets cardsets_cardsettypeid_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: card_faces card_faces_card_template_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.cardsets
-    ADD CONSTRAINT cardsets_cardsettypeid_fkey FOREIGN KEY (cardsettypeid) REFERENCES public.cardsettypes(id);
-
-
---
--- Name: cardsets cardsets_parentsetid_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.cardsets
-    ADD CONSTRAINT cardsets_parentsetid_fkey FOREIGN KEY (parentsetid) REFERENCES public.cardsets(id);
+ALTER TABLE ONLY public.card_faces
+    ADD CONSTRAINT card_faces_card_template_id_fkey FOREIGN KEY (card_template_id) REFERENCES public.card_templates(id);
 
 
 --
--- Name: cardtemplates cardtemplates_cardclassid_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: card_print_faces card_print_faces_card_face_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.cardtemplates
-    ADD CONSTRAINT cardtemplates_cardclassid_fkey FOREIGN KEY (cardclassid) REFERENCES public.cardclasses(id);
-
-
---
--- Name: cardtemplates cardtemplates_cardnameid_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.cardtemplates
-    ADD CONSTRAINT cardtemplates_cardnameid_fkey FOREIGN KEY (cardnameid) REFERENCES public.cardnames(id);
+ALTER TABLE ONLY public.card_print_faces
+    ADD CONSTRAINT card_print_faces_card_face_id_fkey FOREIGN KEY (card_face_id) REFERENCES public.card_faces(id);
 
 
 --
--- Name: cardtemplates cardtemplates_cardspecializationid_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: card_print_faces card_print_faces_card_print_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.cardtemplates
-    ADD CONSTRAINT cardtemplates_cardspecializationid_fkey FOREIGN KEY (cardspecializationid) REFERENCES public.cardspecializations(id);
-
-
---
--- Name: cardtemplates cardtemplates_cardtypeid_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.cardtemplates
-    ADD CONSTRAINT cardtemplates_cardtypeid_fkey FOREIGN KEY (cardtypeid) REFERENCES public.cardtypes(id);
+ALTER TABLE ONLY public.card_print_faces
+    ADD CONSTRAINT card_print_faces_card_print_id_fkey FOREIGN KEY (card_print_id) REFERENCES public.card_prints(id);
 
 
 --
--- Name: cardtemplatesubtypes cardtemplatesubtypes_cardsubtypeid_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: card_prints card_prints_card_finish_type_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.cardtemplatesubtypes
-    ADD CONSTRAINT cardtemplatesubtypes_cardsubtypeid_fkey FOREIGN KEY (cardsubtypeid) REFERENCES public.cardsubtypes(id);
+ALTER TABLE ONLY public.card_prints
+    ADD CONSTRAINT card_prints_card_finish_type_id_fkey FOREIGN KEY (card_finish_type_id) REFERENCES public.card_finish_types(id);
 
 
 --
--- Name: cardtemplatesubtypes cardtemplatesubtypes_cardtemplateid_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: card_prints card_prints_card_group_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.cardtemplatesubtypes
-    ADD CONSTRAINT cardtemplatesubtypes_cardtemplateid_fkey FOREIGN KEY (cardtemplateid) REFERENCES public.cardtemplates(id);
+ALTER TABLE ONLY public.card_prints
+    ADD CONSTRAINT card_prints_card_group_id_fkey FOREIGN KEY (card_group_id) REFERENCES public.card_groups(id);
+
+
+--
+-- Name: card_prints card_prints_card_layout_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.card_prints
+    ADD CONSTRAINT card_prints_card_layout_id_fkey FOREIGN KEY (card_layout_id) REFERENCES public.card_layouts(id);
+
+
+--
+-- Name: card_sets card_sets_card_set_type_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.card_sets
+    ADD CONSTRAINT card_sets_card_set_type_id_fkey FOREIGN KEY (card_set_type_id) REFERENCES public.card_set_types(id);
+
+
+--
+-- Name: card_sets card_sets_parent_set_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.card_sets
+    ADD CONSTRAINT card_sets_parent_set_id_fkey FOREIGN KEY (parent_set_id) REFERENCES public.card_sets(id);
+
+
+--
+-- Name: card_template_subtypes card_template_subtypes_card_subtype_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.card_template_subtypes
+    ADD CONSTRAINT card_template_subtypes_card_subtype_id_fkey FOREIGN KEY (card_subtype_id) REFERENCES public.card_subtypes(id);
+
+
+--
+-- Name: card_template_subtypes card_template_subtypes_card_template_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.card_template_subtypes
+    ADD CONSTRAINT card_template_subtypes_card_template_id_fkey FOREIGN KEY (card_template_id) REFERENCES public.card_templates(id);
+
+
+--
+-- Name: card_templates card_templates_card_class_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.card_templates
+    ADD CONSTRAINT card_templates_card_class_id_fkey FOREIGN KEY (card_class_id) REFERENCES public.card_classes(id);
+
+
+--
+-- Name: card_templates card_templates_card_name_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.card_templates
+    ADD CONSTRAINT card_templates_card_name_id_fkey FOREIGN KEY (card_name_id) REFERENCES public.card_names(id);
+
+
+--
+-- Name: card_templates card_templates_card_specialization_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.card_templates
+    ADD CONSTRAINT card_templates_card_specialization_id_fkey FOREIGN KEY (card_specialization_id) REFERENCES public.card_specializations(id);
+
+
+--
+-- Name: card_templates card_templates_card_type_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.card_templates
+    ADD CONSTRAINT card_templates_card_type_id_fkey FOREIGN KEY (card_type_id) REFERENCES public.card_types(id);
 
 
 --

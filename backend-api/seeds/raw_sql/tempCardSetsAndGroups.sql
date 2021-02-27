@@ -1,15 +1,15 @@
 
-DROP TABLE IF EXISTS tempCardSets;
-DROP TABLE IF EXISTS tempCardGroups;
+DROP TABLE IF EXISTS temp_card_sets;
+DROP TABLE IF EXISTS temp_card_groups;
 
-CREATE TABLE tempCardSets (
-	`setCode` VARCHAR(50) CHARACTER SET UTF8MB4,
-	`parentSetCode` VARCHAR(50) CHARACTER SET UTF8MB4,
-	`setName` VARCHAR(50) CHARACTER SET UTF8MB4,
-	`setType` VARCHAR(50) CHARACTER SET UTF8MB4
+CREATE TABLE temp_card_sets (
+	set_code TEXT,
+	parent_set_code TEXT,
+	set_name TEXT,
+	set_type TEXT
 );
 
-INSERT IGNORE INTO tempCardSets (setCode, parentSetCode, setName, setType) VALUES
+INSERT INTO temp_card_sets VALUES
 	('OXO', NULL, 'Slingshot Underground', 'promo'),
 	('LSS', NULL, 'Legend Story Studios Promos', 'promo'),
 	('LGS', NULL, 'Local Game Store Promos', 'promo'),
@@ -27,14 +27,14 @@ INSERT IGNORE INTO tempCardSets (setCode, parentSetCode, setName, setType) VALUE
 	('U-ARC', 'ARC', 'Arcane Rising Unlimited', 'core'),
 	('CRU', NULL, 'Crucible of War', 'support');
 
-CREATE TABLE IF NOT EXISTS tempCardGroups (
-    `groupCode` VARCHAR(7) CHARACTER SET UTF8MB4,
-    `groupName` VARCHAR(36) CHARACTER SET UTF8MB4,
-    `datePrinted` DATETIME,
-    `dateReleased` DATETIME
+CREATE TABLE IF NOT EXISTS temp_card_groups (
+    group_code TEXT,
+    group_name TEXT,
+    date_printed DATE,
+    date_released DATE
 );
 
-INSERT INTO tempCardGroups VALUES
+INSERT INTO temp_card_groups VALUES
     ('IRA','Ira Welcome Deck','2018-12-01 00:00:00','2019-08-31 00:00:00'),
     ('BVO','Bravo Hero Deck','2019-08-01 00:00:00','2019-10-11 00:00:00'),
     ('RNR','Rhinar Hero Deck','2019-08-01 00:00:00','2019-10-11 00:00:00'),

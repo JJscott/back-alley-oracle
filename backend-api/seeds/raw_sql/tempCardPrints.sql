@@ -1,18 +1,15 @@
-
-DROP TABLE IF EXISTS tempCardPrints;
-
-CREATE TABLE IF NOT EXISTS tempCardPrints (
-    `printId_gen` VARCHAR(15) CHARACTER SET UTF8MB4,
-    `faceIds_ref` VARCHAR(17) CHARACTER SET UTF8MB4,
-    `finishTypeCode` VARCHAR(2) CHARACTER SET UTF8MB4,
-    `layout` VARCHAR(18) CHARACTER SET UTF8MB4,
-    `groupCode` VARCHAR(7) CHARACTER SET UTF8MB4,
-    `nzId` INT,
-    `tcgPlayerId` INT,
-    `cardMerchantId` INT
+DROP TABLE IF EXISTS temp_card_prints;
+CREATE TABLE IF NOT EXISTS temp_card_prints (
+    print_id_gen TEXT,
+    face_id_ref TEXT,
+    finish_type_code TEXT,
+    layout TEXT,
+    group_code TEXT,
+    nz_id INT,
+    tcg_player_id INT,
+    card_merchant_id INT
 );
-
-INSERT INTO tempCardPrints VALUES
+INSERT INTO temp_card_prints VALUES
     ('ARC000-CF','ARC000','CF','standard','ARC',NULL,NULL,NULL),
     ('ARC001+002-NF','ARC001,ARC002','NF','double_sided_token','ARC',NULL,NULL,NULL),
     ('ARC002+038-NF','ARC002,ARC038','NF','double_sided_token','ARC',NULL,NULL,NULL),
@@ -263,7 +260,7 @@ INSERT INTO tempCardPrints VALUES
     ('ARC129-RF','ARC129','RF','standard','ARC',NULL,NULL,NULL),
     ('ARC130-NF','ARC130','NF','standard','ARC',NULL,NULL,NULL),
     ('ARC130-RF','ARC130','RF','standard','ARC',NULL,NULL,NULL);
-INSERT INTO tempCardPrints VALUES
+INSERT INTO temp_card_prints VALUES
     ('ARC131-NF','ARC131','NF','standard','ARC',NULL,NULL,NULL),
     ('ARC131-RF','ARC131','RF','standard','ARC',NULL,NULL,NULL),
     ('ARC132-NF','ARC132','NF','standard','ARC',NULL,NULL,NULL),
@@ -514,7 +511,7 @@ INSERT INTO tempCardPrints VALUES
     ('U-ARC037-NF','U-ARC037','NF','standard','U-ARC',NULL,NULL,NULL),
     ('U-ARC037-RF','U-ARC037','RF','standard','U-ARC',NULL,NULL,NULL),
     ('U-ARC038+039-NF','U-ARC038,U-ARC039','NF','double_sided_token','U-ARC',NULL,NULL,NULL);
-INSERT INTO tempCardPrints VALUES
+INSERT INTO temp_card_prints VALUES
     ('U-ARC039+077-NF','U-ARC039,U-ARC077','NF','double_sided_token','U-ARC',NULL,NULL,NULL),
     ('U-ARC040+076-NF','U-ARC040,U-ARC076','NF','double_sided_token','U-ARC',NULL,NULL,NULL),
     ('U-ARC040+112-NF','U-ARC040,U-ARC112','NF','double_sided_token','U-ARC',NULL,NULL,NULL),
@@ -765,7 +762,7 @@ INSERT INTO tempCardPrints VALUES
     ('U-ARC168-RF','U-ARC168','RF','standard','U-ARC',NULL,NULL,NULL),
     ('U-ARC169-NF','U-ARC169','NF','standard','U-ARC',NULL,NULL,NULL),
     ('U-ARC169-RF','U-ARC169','RF','standard','U-ARC',NULL,NULL,NULL);
-INSERT INTO tempCardPrints VALUES
+INSERT INTO temp_card_prints VALUES
     ('U-ARC170-NF','U-ARC170','NF','standard','U-ARC',NULL,NULL,NULL),
     ('U-ARC170-RF','U-ARC170','RF','standard','U-ARC',NULL,NULL,NULL),
     ('U-ARC171-NF','U-ARC171','NF','standard','U-ARC',NULL,NULL,NULL),
@@ -1016,7 +1013,7 @@ INSERT INTO tempCardPrints VALUES
     ('CRU064-RF','CRU064','RF','standard','CRU',NULL,NULL,NULL),
     ('CRU065-NF','CRU065','NF','standard','CRU',NULL,NULL,NULL),
     ('CRU065-RF','CRU065','RF','standard','CRU',NULL,NULL,NULL);
-INSERT INTO tempCardPrints VALUES
+INSERT INTO temp_card_prints VALUES
     ('CRU066-NF','CRU066','NF','standard','CRU',NULL,NULL,NULL),
     ('CRU066-RF','CRU066','RF','standard','CRU',NULL,NULL,NULL),
     ('CRU067-NF','CRU067','NF','standard','CRU',NULL,NULL,NULL),
@@ -1267,7 +1264,7 @@ INSERT INTO tempCardPrints VALUES
     ('CRU196-RF','CRU196','RF','standard','CRU',NULL,NULL,NULL),
     ('CRU197-NF','CRU197','NF','standard','CRU',NULL,NULL,NULL),
     ('CRU197-RF','CRU197','RF','standard','CRU',NULL,NULL,NULL);
-INSERT INTO tempCardPrints VALUES
+INSERT INTO temp_card_prints VALUES
     ('FAB001-GF','FAB001','GF','standard','POP2019',NULL,NULL,NULL),
     ('FAB003-GF','FAB003','GF','standard','POP2020',NULL,NULL,NULL),
     ('FAB004-GF','FAB004','GF','standard','POP2020',NULL,NULL,NULL),
@@ -1518,7 +1515,7 @@ INSERT INTO tempCardPrints VALUES
     ('WTR042-RF','WTR042','RF','standard','WTR',NULL,NULL,NULL),
     ('WTR043-NF','WTR043','NF','standard','WTR',NULL,NULL,NULL),
     ('WTR043-RF','WTR043','RF','standard','WTR',NULL,NULL,NULL);
-INSERT INTO tempCardPrints VALUES
+INSERT INTO temp_card_prints VALUES
     ('WTR044-NF','WTR044','NF','standard','WTR',NULL,NULL,NULL),
     ('WTR044-RF','WTR044','RF','standard','WTR',NULL,NULL,NULL),
     ('WTR045-NF','WTR045','NF','standard','WTR',NULL,NULL,NULL),
@@ -1769,7 +1766,7 @@ INSERT INTO tempCardPrints VALUES
     ('WTR173-RF','WTR173','RF','standard','WTR',NULL,NULL,NULL),
     ('WTR174-NF','WTR174','NF','standard','WTR',NULL,NULL,NULL),
     ('WTR174-RF','WTR174','RF','standard','WTR',NULL,NULL,NULL);
-INSERT INTO tempCardPrints VALUES
+INSERT INTO temp_card_prints VALUES
     ('WTR175-NF','WTR175','NF','standard','WTR',NULL,NULL,NULL),
     ('WTR175-RF','WTR175','RF','standard','WTR',NULL,NULL,NULL),
     ('WTR176-NF','WTR176','NF','standard','WTR',NULL,NULL,NULL),
@@ -2020,7 +2017,7 @@ INSERT INTO tempCardPrints VALUES
     ('U-WTR074-RF','U-WTR074','RF','standard','U-WTR',NULL,NULL,NULL),
     ('U-WTR075+078-NF','U-WTR075,U-WTR078','NF','double_sided_token','U-WTR',NULL,NULL,NULL),
     ('U-WTR077+078-NF','U-WTR077,U-WTR078','NF','double_sided_token','U-WTR',NULL,NULL,NULL);
-INSERT INTO tempCardPrints VALUES
+INSERT INTO temp_card_prints VALUES
     ('U-WTR078+114-NF','U-WTR078,U-WTR114','NF','double_sided_token','U-WTR',NULL,NULL,NULL),
     ('U-WTR078+225-NF','U-WTR078,U-WTR225','NF','double_sided_token','U-WTR',NULL,NULL,NULL),
     ('U-WTR079-RF','U-WTR079','RF','standard','U-WTR',NULL,NULL,NULL),
@@ -2271,7 +2268,7 @@ INSERT INTO tempCardPrints VALUES
     ('U-WTR205-RF','U-WTR205','RF','standard','U-WTR',NULL,NULL,NULL),
     ('U-WTR206-NF','U-WTR206','NF','standard','U-WTR',NULL,NULL,NULL),
     ('U-WTR206-RF','U-WTR206','RF','standard','U-WTR',NULL,NULL,NULL);
-INSERT INTO tempCardPrints VALUES
+INSERT INTO temp_card_prints VALUES
     ('U-WTR207-NF','U-WTR207','NF','standard','U-WTR',NULL,NULL,NULL),
     ('U-WTR207-RF','U-WTR207','RF','standard','U-WTR',NULL,NULL,NULL),
     ('U-WTR208-NF','U-WTR208','NF','standard','U-WTR',NULL,NULL,NULL),

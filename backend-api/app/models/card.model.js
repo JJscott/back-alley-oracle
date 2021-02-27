@@ -4,6 +4,85 @@ const moduleLogger = logger.child({ module: 'card.model' });
 
 
 
+
+const rowToCard = row => {
+  const hash_id = cardIdHasher.encode(row.card_id);
+
+  let card = {};
+
+  // card
+  card.hash_id = hash_id;
+  card.object = 'card';
+
+  // template
+  card.template_sid = row.template_sid;
+  card.name = row.name;
+  if (row.pitch !== null) card.pitch = row.pitch;
+  if (row.cost !== null) card.cost = row.cost;
+  if (row.cost_var !== null) card.varCost = row.cost_var;
+  if (row.power !== null) card.power = row.power;
+  if (row.power_var !== null) card.power = row.power;
+  if (row.defense !== null) card.defense = row.defense;
+  if (row.defense_var !== null) card.defense = row.defense;
+  if (row.intellect !== null) card.intellect = row.intellect;
+  if (row.life !== null) card.life = row.life;
+  if (row.handedness !== null) card.handedness = row.handedness;
+  if (row.specialization !== null) card.specialization = row.specialization;
+  card.legendary = row.legendary;
+  card.class = row.class;
+  card.type = row.type;
+  card.subtypes = (row.subtypes_arr !== null) ? row.subtypes_arr : [];
+
+  // face
+  card.face_sid = row.face_sid;
+  card.artist_name = row.artist_name;
+  card.set_number = row.set_number;
+  card.set_code = row.set_code;
+  card.set_name = row.set_name;
+  card.set_type = row.set_type_name;
+  card.booster = row.booster;
+  card.draftable = row.draftable;
+  card.promo = row.promo;
+  card.code = row.code;
+  card.rules_text = row.rules_text;
+  card.flavor_text = row.flavor_text;
+  card.rarity_code = row.rarity_code;
+  card.rarity_name = row.rarity_name;
+  card.art_type_code = row.art_type_code;
+  card.art_type_name = row.art_type_name;
+  card.frame_style = row.frame_style;
+  if (row.frame_color !== null) card.frame_color = row.frame_color;
+
+  card.image_uris = {
+    png: process.env.IMG_URL + 'raw/' + row.imageStr + '.png',
+    normal: process.env.IMG_URL + 'raw/' + row.imageStr + '.png',
+    small: process.env.IMG_URL + 'raw/' + row.imageStr + '.png',
+    thumb: process.env.IMG_URL + 'raw/' + row.imageStr + '.png',
+  };
+
+  // print
+  card.card_print_sid = row.card_print_sid;
+  card.finish_type_code = row.finish_type_code;
+  card.finish_type_name = row.finish_type_name;
+  card.layout = row.layout;
+  card.group_code = row.group_code;
+  card.group_name = row.group_name;
+  card.date_printed = row.date_printed;
+  card.date_released = row.date_released;
+  // ?? nzId ??
+  // tcgPlayerId
+  // cardMerchantId
+
+  card.squire_uri = `${process.env.WEB_URL}cards/${hashId}`;
+
+  // if (row.pitch !== null)
+  // card.printsUri = `${process.env.API_URL}cards/search?q=name:"${row.name}"%20${}`;
+
+  return card;
+};
+
+
+
 const numericWhereClause = (key, op, value, query) => {
   let sql;
   if (Array.isArray(value)) {      
@@ -55,10 +134,10 @@ const stringLikeWhereClause = (key, op, value, query) => {
   if (op === ':') {
     if (Array.isArray(value)) {
       value.forEach(str => {
-        q = q.where(key,'LIKE',`%${str}%`);
+        q = q.where(key,'ILIKE',`%${str}%`);
       });
     } else {
-      q = q.where(key,'LIKE',`%${value}%`);
+      q = q.where(key,'ILIKE',`%${value}%`);
     }
   }
   //TODO throw
@@ -67,26 +146,13 @@ const stringLikeWhereClause = (key, op, value, query) => {
 
 const subtypeWhereClause = (key, op, value, query) => {
   const subquery = knex
-    .select('cardTemplateSubtypes.cardTemplateId')
-    .from('cardTemplateSubtypes')
-    .join('cardSubtypes', 'cardTemplateSubtypes.cardSubtypeId', 'cardSubtypes.id')
+    .select('card_template_subtypes.card_template_id')
+    .from('card_template_subtypes')
+    .join('card_subtypes', 'card_template_subtypes.card_subtype_id', 'card_subtypes.id')
     .whereRaw('subtype IN ( ? )', [value]);
   switch (op) {
-    case ':' : return query.whereIn('templateId', subquery);
-    case '!:': return query.whereNotIn('templateId', subquery);
-  }
-  // TODO throw
-};
-
-const keywordWhereClause = (key, op, value, query) => {
-  const subquery = knex
-    .select('cardTemplateKeywords.cardTemplateId')
-    .from('cardTemplateKeywords')
-    .join('cardKeywords', 'cardTemplateKeywords.cardKeywordId', 'cardKeywords.id')
-    .whereRaw('keyword IN ( ? )', [value]);
-  switch (op) {
-    case ':' : return query.whereIn('templateId', subquery);
-    case '!:': return query.whereNotIn('templateId', subquery);
+    case ':' : return query.whereIn('template_id', subquery);
+    case '!:': return query.whereNotIn('template_id', subquery);
   }
   // TODO throw
 };
@@ -151,25 +217,10 @@ exports.findAll = async ({
 
 
   // unique card
-  let inner_query = knex.raw(`
-    SELECT
-      v_cards.*,
-      ROW_NUMBER() OVER (
-        PARTITION BY cardTemplateId 
-        ORDER BY
-          booster DESC,
-          dateReleased DESC,
-          finishTypeRank ASC,
-          artTypeRank ASC
-      ) row_num
-    FROM v_cards
-  `);
-
   let query = knex
-    .with('ordered', inner_query)
     .select()
-    .from('ordered')
-    .where('row_num', 1)
+    .from('mv_cards')
+    .where('template_rank', 1)
     .as('results');
 
   // iterate through each key-value pair in searchOptions
@@ -191,15 +242,12 @@ exports.findAll = async ({
         stringExactWhereClause(key, op, value, query);
         break;
       case 'name':
-      case 'rulesText':
-      case 'flavorText':
+      case 'rules_text':
+      case 'flavor_text':
         stringLikeWhereClause(key, op, value, query);
         break;
       case 'subtype':
         subtypeWhereClause(key, op, value, query);
-        break;
-      case 'keyword':
-        keywordWhereClause(key, op, value, query);
         break;
       //TODO throw
     }
@@ -226,7 +274,7 @@ exports.findAll = async ({
     // .limit(pageOptions.limit)
     // .offset((pageOptions.page-1) * pageOptions.limit)
     .then(rows => {
-      cardRows = rows;
+      cardRows = rows.map(rowToCard);
     })
     .catch(err => {
       moduleLogger.error(err);

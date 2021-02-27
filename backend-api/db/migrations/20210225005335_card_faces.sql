@@ -1,58 +1,60 @@
 -- migrate:up
 
-CREATE TABLE cardRarities (
+CREATE TABLE card_rarities (
     id SERIAL PRIMARY KEY,
-    rarityCode TEXT UNIQUE NOT NULL,
-    rarityName TEXT UNIQUE NOT NULL,
-    rarityRank INT UNIQUE NOT NULL
+    rarity_code TEXT UNIQUE NOT NULL,
+    rarity_name TEXT UNIQUE NOT NULL,
+    rarity_rank INT UNIQUE NOT NULL
 );
 
-CREATE TABLE cardArtTypes (
+CREATE TABLE card_art_types (
     id SERIAL PRIMARY KEY,
-    artTypeCode TEXT UNIQUE NOT NULL,
-    artTypeName TEXT UNIQUE NOT NULL,
-    artTypeRank INT UNIQUE NOT NULL
+    art_type_code TEXT UNIQUE NOT NULL,
+    art_type_name TEXT UNIQUE NOT NULL,
+    art_type_rank INT UNIQUE NOT NULL
 );
 
-CREATE TABLE cardFrameStyles (
+CREATE TABLE card_frame_styles (
     id SERIAL PRIMARY KEY,
-    frameStyle TEXT UNIQUE NOT NULL
+    frame_style TEXT UNIQUE NOT NULL
 );
 
-CREATE TABLE cardFrameAltColors (
+CREATE TABLE card_frame_colors (
     id SERIAL PRIMARY KEY,
-    frameAltColor TEXT UNIQUE NOT NULL
+    frame_color TEXT UNIQUE NOT NULL
 );
 
-CREATE TABLE cardArtists (
+CREATE TABLE card_artists (
     id SERIAL PRIMARY KEY,
-    artistName TEXT UNIQUE NOT NULL
+    artist_name TEXT UNIQUE NOT NULL
 );
 
-CREATE TABLE cardFaces (
+CREATE TABLE card_faces (
     id SERIAL PRIMARY KEY,
-    faceSid TEXT UNIQUE NOT NULL,
-    setNumber INT NOT NULL,
-    imageStr TEXT NOT NULL,
+    face_sid TEXT UNIQUE NOT NULL,
+    set_number INT NOT NULL,
+    image_str TEXT NOT NULL,
     code TEXT NOT NULL,
-    rulesText TEXT,
-    flavorText TEXT,
-    cardTemplateId INT REFERENCES cardTemplates (id),
-    cardSetId INT REFERENCES cardSets (id),
-    cardRarityId INT REFERENCES cardRarities (id),
-    cardArtTypeId INT REFERENCES cardArtTypes (id),
-    cardFrameStyleId INT REFERENCES cardFrameStyles (id),
-    cardFrameAltColorId INT REFERENCES cardFrameAltColors (id),
-    cardArtistId INT REFERENCES cardArtists (id)
+    rules_text TEXT,
+    flavor_text TEXT,
+    card_template_id INT REFERENCES card_templates (id),
+    card_set_id INT REFERENCES card_sets (id),
+    card_rarity_id INT REFERENCES card_rarities (id),
+    card_art_type_id INT REFERENCES card_art_types (id),
+    card_frame_style_id INT REFERENCES card_frame_styles (id),
+    card_frame_color_id INT REFERENCES card_frame_colors (id),
+    card_artist_id INT REFERENCES card_artists (id)
 );
+
+
 
 
 
 -- migrate:down
 
-DROP TABLE cardFaces;
-DROP TABLE cardArtists;
-DROP TABLE cardFrameAltColors;
-DROP TABLE cardFrameStyles;
-DROP TABLE cardArtTypes;
-DROP TABLE cardRarities;
+DROP TABLE card_faces;
+DROP TABLE card_artists;
+DROP TABLE card_frame_colors;
+DROP TABLE card_frame_styles;
+DROP TABLE card_art_types;
+DROP TABLE card_rarities;
