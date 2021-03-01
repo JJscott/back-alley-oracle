@@ -70,17 +70,7 @@ SELECT
     card_groups.date_released,
     -- backFace
     back_print_face.card_face_id AS back_card_face_id,
-    back_faces.image_str AS back_face_image_str,
-    -- template rank
-    ROW_NUMBER() OVER (
-        PARTITION BY card_templates.id 
-        ORDER BY
-            card_set_types.booster DESC,
-            card_groups.date_released DESC,
-            card_set_types.set_type_rank ASC,
-            card_finish_types.finish_type_rank ASC,
-            card_art_types.art_type_rank ASC
-    ) template_rank
+    back_faces.image_str AS back_face_image_str
 FROM card_prints
     INNER JOIN card_print_faces front_print_face ON front_print_face.card_print_id = card_prints.id
     LEFT JOIN card_print_faces back_print_face ON back_print_face.card_print_id = front_print_face.card_print_id AND back_print_face.id <> front_print_face.id

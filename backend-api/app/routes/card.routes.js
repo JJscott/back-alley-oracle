@@ -7,7 +7,7 @@ module.exports = app => {
   router.get("/random", cardController.getRandom);
   // router.get("/cycles/:cname", cardController.findAllCycles);
   // router.get("/prints/:pname", cardController.findAllPrints);
-  router.get("/:cardId", cardController.getOne);
+  router.get("/:hashId", cardController.getOne);
 
   app.use('/cards', router);
 };

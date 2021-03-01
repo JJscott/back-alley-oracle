@@ -37,6 +37,10 @@ Then seed the database with card data using
 `npm run dev`
 `npm run start`
 
+`docker build -t NAME`
+`docker run -p 8080:8080 NAME`
+
+
 
 
 

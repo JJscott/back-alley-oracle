@@ -716,8 +716,7 @@ CREATE MATERIALIZED VIEW public.mv_cards AS
     card_groups.date_printed,
     card_groups.date_released,
     back_print_face.card_face_id AS back_card_face_id,
-    back_faces.image_str AS back_face_image_str,
-    row_number() OVER (PARTITION BY card_templates.id ORDER BY card_set_types.booster DESC, card_groups.date_released DESC, card_set_types.set_type_rank, card_finish_types.finish_type_rank, card_art_types.art_type_rank) AS template_rank
+    back_faces.image_str AS back_face_image_str
    FROM (((((((((((((((((((((public.card_prints
      JOIN public.card_print_faces front_print_face ON ((front_print_face.card_print_id = card_prints.id)))
      LEFT JOIN public.card_print_faces back_print_face ON (((back_print_face.card_print_id = front_print_face.card_print_id) AND (back_print_face.id <> front_print_face.id))))

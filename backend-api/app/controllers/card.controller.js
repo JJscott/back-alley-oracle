@@ -1,4 +1,4 @@
-const Hashids = require('hashids/cjs')
+
 const queryParser = require('../helpers/queryParser');
 const cardModel = require('../models/card.model');
 const { logger } = require('../helpers/logger');
@@ -10,7 +10,6 @@ const {
 } = require('../helpers/response');
 
 
-const cardIdHasher = new Hashids('oracle', 10);
 
 
 // Parse query
@@ -118,25 +117,18 @@ const validateParseQuery = (queryString) => {
 // Find a single Card with id
 exports.getOne = async (req, res) => {
 
-  if (!req.params.hasOwnProperty('cardId')) {
-    return handleInvalidRequest(res, `Missing query parameter 'cardId'`);
+  if (!req.params.hasOwnProperty('hashId')) {
+    return handleInvalidRequest(res, `Missing query parameter 'hashId'`);
   }
 
-  // const id = req.params.cardId;
-  const id = cardIdHasher.decode(req.params.cardId);
-
-  const searchOptions = {
-    cardId: id
-  };
+  const hashId = req.params.hashId;
 
   // TODO, handle no result
-  const row = await cardModel.getOne({ searchOptions });
+  const card = await cardModel.getOne(hashId);
 
-  if (row === undefined || row.length == 0) {
-    return handleNotFound(res, `No card with id: ${id} found`)
+  if (card === undefined || card.length == 0) {
+    return handleNotFound(res, `No card with hashId: ${hashId} found`)
   }
-
-  const card = rowToCard(row);
   return handleSuccess(res, card);
 };
 
@@ -145,13 +137,11 @@ exports.getOne = async (req, res) => {
 exports.getRandom = async (req, res) => {
   // TODO validate?
 
-  const row = await cardModel.getRandom();
+  const card = await cardModel.getRandom();
 
-  if (row === undefined || row.length == 0) {
+  if (card === undefined || card.length == 0) {
     return handleNotFound(res, `No card found`)
   }
-
-  const card = rowToCard(row);
   return handleSuccess(res, card);
 };
 

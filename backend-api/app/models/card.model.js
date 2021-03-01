@@ -2,16 +2,20 @@ const knex = require('../helpers/database')
 const { logger } = require('../helpers/logger');
 const moduleLogger = logger.child({ module: 'card.model' });
 
-
+// hasher
+const Hashids = require('hashids/cjs')
+const cardIdHasher = new Hashids('oracle', 10);
 
 
 const rowToCard = row => {
-  const hash_id = cardIdHasher.encode(row.card_id);
+  if (!(row)) return [];
+
+  const hashId = cardIdHasher.encode(row.card_id);
 
   let card = {};
 
   // card
-  card.hash_id = hash_id;
+  card.hash_id = hashId;
   card.object = 'card';
 
   // template
@@ -54,10 +58,10 @@ const rowToCard = row => {
   if (row.frame_color !== null) card.frame_color = row.frame_color;
 
   card.image_uris = {
-    png: process.env.IMG_URL + 'raw/' + row.imageStr + '.png',
-    normal: process.env.IMG_URL + 'raw/' + row.imageStr + '.png',
-    small: process.env.IMG_URL + 'raw/' + row.imageStr + '.png',
-    thumb: process.env.IMG_URL + 'raw/' + row.imageStr + '.png',
+    png: process.env.IMG_URL + 'raw/' + row.image_str + '.png',
+    normal: process.env.IMG_URL + 'raw/' + row.image_str + '.png',
+    small: process.env.IMG_URL + 'raw/' + row.image_str + '.png',
+    thumb: process.env.IMG_URL + 'raw/' + row.image_str + '.png',
   };
 
   // print
@@ -168,14 +172,18 @@ const subtypeWhereClause = (key, op, value, query) => {
 
 
 // TODO add a strict option that if more than one result is found throw and error?
-exports.getOne = async ({ searchOptions={} }) => {
+exports.getOne = async (hashId) => {
+  const cardId = cardIdHasher.decode(hashId)[0];
+  console.log(hashId);
+  console.log(cardId);
   let result = [];
+
   await knex
-    .select('prints.*', 'faces.*', 'templates.*')
-    .from({prints:'v_cards'})
-    .where(searchOptions)
+    .select('*')
+    .from({prints:'mv_cards'})
+    .where('card_id', cardId)
     .then(rows => {
-      result = rows[0] || [];
+      result = rowToCard(rows[0]);
     })
     .catch(err => {
       moduleLogger.error(err);
@@ -190,12 +198,11 @@ exports.getRandom = async () => {
   let result = [];
   await knex
     .select('*')
-    .from('v_cards')
-    .groupBy('printId') // need groupBy to ensure even distribution for prints
-    .orderByRaw('RAND()')
+    .from('mv_cards')
+    .orderByRaw('random()')
     .limit(1)
     .then(rows => {
-      result = rows[0] || [];
+      result = rowToCard(rows[0]);
     })
     .catch(err => {
       moduleLogger.error(err);
@@ -220,7 +227,6 @@ exports.findAll = async ({
   let query = knex
     .select()
     .from('mv_cards')
-    .where('template_rank', 1)
     .as('results');
 
   // iterate through each key-value pair in searchOptions
