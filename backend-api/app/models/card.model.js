@@ -225,7 +225,17 @@ exports.findAll = async ({
 
   // unique card
   let query = knex
-    .select()
+    .select(knex.raw(`
+    *,
+    ROW_NUMBER() OVER (
+      PARTITION BY card_template_id 
+      ORDER BY
+        booster DESC,
+        date_released DESC,
+        set_type_rank ASC,
+        finish_type_rank ASC,
+        art_type_rank ASC
+    ) AS template_rank`))
     .from('mv_cards')
     .as('results');
 
@@ -258,6 +268,34 @@ exports.findAll = async ({
       //TODO throw
     }
   });
+
+
+  
+  
+  // unique template
+  if (true) {
+    query = knex
+      .select()
+      .from(query)
+      .where("template_rank", 1)
+      .as('results');
+  }
+
+  // unique template + cycle collection
+  else {
+    //TODO
+    query = knex
+      .select(knex.raw(`
+        *,
+        DENSE_RANK() OVER (
+          PARTITION BY name
+          ORDER BY pitch
+        )`))
+      .from(query)
+      .where("template_rank", 1)
+      .as('results');
+  }
+
 
   let totalCount;
   let cardRows;
