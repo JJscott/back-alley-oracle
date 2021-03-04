@@ -158,37 +158,37 @@ exports.search = async (req, res) => {
   const queryString = req.query.q;
   const {queryList, warnings} = validateParseQuery(queryString);
 
-  // // query page number
-  // // 
-  // let pageNumber = 1;
-  // if (req.query.hasOwnProperty('page')) {
-  //   let tempPage = parseInt(req.query.page);
-  //   if (!isNaN(tempPage)) {
-  //     if (tempPage >= 1) {
-  //       pageNumber = tempPage;
-  //     } else {
-  //       warnings.push(`Invalid page number '${tempPage}' - must greater than or equal to 1`);
-  //     }
-  //   } else {
-  //     warnings.push(`Invalid page number '${req.query.page}'`);
-  //   }
-  // }
+  // query page number
+  // 
+  let pageNumber = 1;
+  if (req.query.hasOwnProperty('page')) {
+    let tempPage = parseInt(req.query.page);
+    if (!isNaN(tempPage)) {
+      if (tempPage >= 1) {
+        pageNumber = tempPage;
+      } else {
+        warnings.push(`Invalid page number '${tempPage}' - must greater than or equal to 1`);
+      }
+    } else {
+      warnings.push(`Invalid page number '${req.query.page}'`);
+    }
+  }
 
-  // // query page size
-  // // 
-  // let pageLimit = 60;
-  // if (req.query.hasOwnProperty('limit')) {
-  //   let tempLimit = parseInt(req.query.limit);
-  //   if (!isNaN(tempLimit)) {
-  //     if (tempLimit >= 1 && tempLimit <= 120) {
-  //       pageLimit = tempLimit;
-  //     } else {
-  //       warnings.push(`Invalid page limit '${tempLimit}' - must be between 1 and 120`);
-  //     }
-  //   } else {
-  //     warnings.push(`Invalid page limit '${req.query.limit}'`);
-  //   }
-  // }
+  // query page size
+  // 
+  let pageLimit = 60;
+  if (req.query.hasOwnProperty('limit')) {
+    let tempLimit = parseInt(req.query.limit);
+    if (!isNaN(tempLimit)) {
+      if (tempLimit >= 1 && tempLimit <= 120) {
+        pageLimit = tempLimit;
+      } else {
+        warnings.push(`Invalid page limit '${tempLimit}' - must be between 1 and 120`);
+      }
+    } else {
+      warnings.push(`Invalid page limit '${req.query.limit}'`);
+    }
+  }
 
   // // order
   // // 
@@ -234,33 +234,32 @@ exports.search = async (req, res) => {
   // sortClauses.push(`templateSid ASC`); // default and final sort value
 
 
-  // // uniqueness
-  // //
-  // let unique = 'templateId'
-  // if (req.query.hasOwnProperty('unique')) {
-  //   uniqueValue = req.query.unique.toLowerCase();
-  //   switch(uniqueValue) {
-  //     case 'templateid':
-  //     case 'cardid':
-  //       unique = uniqueValue;
-  //       break;
-  //     default:
-  //       warnings.push(`Invalid unique value '${uniqueValue}'`);
-  //   }
-  // }
+  // uniqueness
+  //
+  let unique = 'cards'
+  if (req.query.hasOwnProperty('unique')) {
+    uniqueValue = req.query.unique.toLowerCase();
+    switch(uniqueValue) {
+      case 'prints':
+      case 'cards':
+      case 'cycles':
+      // case 'art':
+        unique = uniqueValue;
+        break;
+      default:
+        warnings.push(`Invalid unique value '${uniqueValue}'`);
+    }
+  }
 
 
   // fetch main card data
   //
   const {totalCount, rows} = await cardModel.findAll({
     searchOptions: queryList,
-    // pageOptions: {page: pageNumber, limit: pageLimit},
+    pageOptions: {page: pageNumber, limit: pageLimit},
     // orderBy: sortClauses,
-    // unique: unique
+    unique: unique
   });
-
-  // cards = rows.map(row => rowToCard(row));
-  cards = rows;
 
   // return
   // 
@@ -269,7 +268,7 @@ exports.search = async (req, res) => {
     total_count: totalCount,
     // hasMore: (totalCount > pageNumber * pageLimit),
     warnings: warnings,
-    data: cards
+    data: rows
   };
 
   return handleSuccess(res, cardList);
