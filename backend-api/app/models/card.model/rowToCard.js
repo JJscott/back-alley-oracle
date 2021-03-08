@@ -78,22 +78,19 @@ exports.rowsToCycles = (rows) => {
   console.log("rows");
   console.log(rows);
 
+  // collate similar
   let tempCycleList = [];
   let cards = [];
   rows.forEach(row => {
     let card = this.rowToCard(row);
     if (cards.length > 0 && cards[0].name !== card.name) {
-      // console.log(`pushing all cards ${cards.map(c => c.name)}`);
       tempCycleList.push(cards);
       cards = [];
     }
-    // console.log(`push card into list ${card.name}`);
     cards.push(card);
   });
   tempCycleList.push(cards);
 
-  console.log("cycles");
-  console.log(tempCycleList);
 
   cycles = []
   tempCycleList.forEach(c => {
