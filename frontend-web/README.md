@@ -47,3 +47,5 @@ https://github.com/cure53/DOMPurify
 https://github.com/JJscott/JJScott.github.io/blob/master/_sass/xixia/_page.scss
 
 
+Diff checking between card prints and cycles
+https://github.com/kpdecker/jsdiff
