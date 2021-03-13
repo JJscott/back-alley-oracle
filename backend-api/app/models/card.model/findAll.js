@@ -191,9 +191,8 @@ exports.findAll = async ({
             ROW_NUMBER() OVER (
                 PARTITION BY card_template_id 
                 ORDER BY
-                    booster DESC,
-                    date_released DESC,
                     set_type_rank ASC,
+                    date_released DESC NULL LAST,
                     finish_type_rank ASC,
                     art_type_rank ASC
             ) AS template_rank`))

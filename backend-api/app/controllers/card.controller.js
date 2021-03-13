@@ -117,17 +117,17 @@ const validateParseQuery = (queryString) => {
 // Find a single Card with id
 exports.getOne = async (req, res) => {
 
-  if (!req.params.hasOwnProperty('hashId')) {
-    return handleInvalidRequest(res, `Missing query parameter 'hashId'`);
+  if (!req.params.hasOwnProperty('templateSid')) {
+    return handleInvalidRequest(res, `Missing query parameter 'templateSid'`);
   }
 
-  const hashId = req.params.hashId;
+  const templateSid = req.params.templateSid;
 
   // TODO, handle no result
-  const card = await cardModel.getOne(hashId);
+  const card = await cardModel.getOne(templateSid, req.query.id);
 
   if (card === undefined || card.length == 0) {
-    return handleNotFound(res, `No card with hashId: ${hashId} found`)
+    return handleNotFound(res, `No card with templateSid: ${templateSid} found`)
   }
   return handleSuccess(res, card);
 };
