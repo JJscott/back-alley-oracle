@@ -28,7 +28,7 @@ const routes = [
     component: () => import("@/views/CardSearchResults")
   },
   {
-    path: "/cards/:cardId",
+    path: "/cards/:templateSid",
     name: "card-view",
     component: () => import("@/views/CardView")
   },

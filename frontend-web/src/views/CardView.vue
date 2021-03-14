@@ -11,7 +11,7 @@
 
             <div class="column">
               <div class="card-image-container">
-                <img :src="card.imageUris.png">
+                <img :src="card.image_uris.png">
               </div>
             </div>
 
@@ -45,18 +45,18 @@
                   <div v-else></div>
                 </div>
 
-                <div class="card-text card-section" v-if="card.rulesText">
+                <div class="card-text card-section" v-if="card.rules_text">
                   <p v-html="cardText" />
                 </div>
 
-                <div class="card-text card-section" v-if="card.flavorText">
+                <div class="card-text card-section" v-if="card.flavor_text">
                   <p v-html="card.flavorText" />
                 </div>
 
-                <div class="card-text card-section" v-if="card.rulesText">
-                  <p>{{card.rarityName}}</p>
+                <div class="card-text card-section" v-if="card.rules_text">
+                  <p>{{card.rarity_name}}</p>
                   <p>{{card.code}}</p>
-                  <p>Illustrated by {{card.artistName}}</p>
+                  <p>Illustrated by {{card.artist_name}}</p>
                 </div>
               </div>
             </div>
@@ -65,8 +65,8 @@
 
               <div class="card-print-box">
                 <div class="card-print-header">
-                  <h2>{{card.setName}} ({{card.setCode}})</h2>
-                  <p>#{{`${card.setNumber}`.padStart(3, '0')}} - {{card.rarityName}}</p>
+                  <h2>{{card.set_name}} ({{card.set_code}})</h2>
+                  <p>#{{`${card.set_number}`.padStart(3, '0')}} - {{card.rarity_name}}</p>
                 </div>
                 <div class="" v-if="cardPrints">
                   <table class="fixed-table-header">
@@ -131,44 +131,23 @@ export default {
   },
   computed: {
     cardIdSegment() {
-      return (this.$route.params.cardId) ? this.$route.params.cardId : '';
+      return {
+        templateSid: this.$route.params.templateSid || '',
+        id: this.$route.query.id
+      };
     }
   },
   methods: {
-    getCard(cardId) {
+    getCard(templateSid, cardId=null) {
       // card
       this.loadingCard = true;
-      CardDataService.get(cardId)
+      CardDataService.get(templateSid, cardId)
         .then(response => {
           this.card = response.data;
-          if (this.card && this.card.rulesText) {
-            this.cardText = CardSymbolParser(this.card.rulesText);
+          if (this.card && this.card.rules_text) {
+            this.cardText = CardSymbolParser(this.card.rules_text);
           }
           this.loadingCard = false;
-
-          // set hashbang equal to templateSid
-          const uriHash = `#!${this.card.templateSid}`;
-          if (this.$route.hash !== uriHash) {
-            this.$router.replace({
-              path: this.$route.path,
-              hash: `#!${this.card.templateSid}`
-            });
-          }
-
-
-          // // prints
-          // CardDataService.getPrints(this.card.pname)
-          //   .then(response => {this.cardPrints = response.data;})
-          //   .catch(e => {console.log(e);});
-
-          // // cycles
-          // CardDataService.getCycles(this.card.cname)
-          //   .then(response => {
-          //     this.cardCycles = response.data;
-          //     this.cardCycles.sort((a,b) => {return a.pitch - b.pitch});
-          //   })
-          //   .catch(e => {console.log(e);});
-            
         })
         .catch(e => {
           console.log(e);
@@ -176,12 +155,12 @@ export default {
     }
   },
   mounted() {
-    this.getCard(this.$route.params.cardId);
+    this.getCard(this.$route.params.cardId, this.$route.query.id || null);
   },
   watch: {
-    cardIdSegment(newCardId) {
-      if (newCardId) {
-        this.getCard(newCardId);
+    cardIdSegment(cardId) {
+      if (cardId.templateSid) {
+        this.getCard(cardId.templateSid, cardId.id);
       }
     }
   }

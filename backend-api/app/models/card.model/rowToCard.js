@@ -91,7 +91,6 @@ exports.rowsToCycles = (rows) => {
   });
   tempCycleList.push(cards);
 
-
   cycles = []
   tempCycleList.forEach(c => {
     cycles.push({
