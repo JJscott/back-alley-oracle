@@ -75,9 +75,6 @@ exports.rowToCard = (row) => {
 
 
 exports.rowsToCycles = (rows) => {
-  console.log("rows");
-  console.log(rows);
-
   // collate similar
   let tempCycleList = [];
   let cards = [];

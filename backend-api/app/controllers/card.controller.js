@@ -6,9 +6,9 @@ const moduleLogger = logger.child({ module: 'card.controller' });
 const {
   handleSuccess,
   handleInvalidRequest,
-  handleNotFound
+  handleNotFound,
+  handleInternalError
 } = require('../helpers/response');
-
 
 
 
@@ -123,26 +123,31 @@ exports.getOne = async (req, res) => {
 
   const templateSid = req.params.templateSid;
 
-  // TODO, handle no result
-  const card = await cardModel.getOne(templateSid, req.query.id);
-
-  if (card === undefined || card.length == 0) {
-    return handleNotFound(res, `No card with templateSid: ${templateSid} found`)
+  try {
+    const card = await cardModel.getOne(templateSid, req.query.id)
+    if (card === undefined || card.length == 0) {
+      return handleNotFound(res, `No card with templateSid: ${templateSid} found`)
+    }
+    return handleSuccess(res, card);
   }
-  return handleSuccess(res, card);
+  catch(err) {
+    return handleInternalError(res, `Internal error while processing templateSid: ${templateSid} and id: ${req.query.id}` );
+  }
 };
 
 
 
 exports.getRandom = async (req, res) => {
-  // TODO validate?
-
-  const card = await cardModel.getRandom();
-
-  if (card === undefined || card.length == 0) {
-    return handleNotFound(res, `No card found`)
+  try {
+    const card = await cardModel.getRandom();
+    if (card === undefined || card.length == 0) {
+      return handleNotFound(res, `No card found`)
+    }
+    return handleSuccess(res, card);
   }
-  return handleSuccess(res, card);
+  catch(err) {
+    return handleInternalError(res, `Internal error while processing random card` );
+  }
 };
 
 
@@ -251,25 +256,29 @@ exports.search = async (req, res) => {
     }
   }
 
+  try {
+    // fetch main card data
+    //
+    const {totalCount, rows} = await cardModel.findAll({
+        searchOptions: queryList,
+        pageOptions: {page: pageNumber, limit: pageLimit},
+        // orderBy: sortClauses,
+        unique: unique
+      });
 
-  // fetch main card data
-  //
-  const {totalCount, rows} = await cardModel.findAll({
-    searchOptions: queryList,
-    pageOptions: {page: pageNumber, limit: pageLimit},
-    // orderBy: sortClauses,
-    unique: unique
-  });
+    // return
+    // 
+    const cardList = {
+      object: 'list',
+      total_count: totalCount,
+      // hasMore: (totalCount > pageNumber * pageLimit),
+      warnings: warnings,
+      data: rows
+    };
 
-  // return
-  // 
-  const cardList = {
-    object: 'list',
-    total_count: totalCount,
-    // hasMore: (totalCount > pageNumber * pageLimit),
-    warnings: warnings,
-    data: rows
+    return handleSuccess(res, cardList);
+  }
+  catch (err) {
+    return handleInternalError(res, `Internal error while processing card search query` );
   };
-
-  return handleSuccess(res, cardList);
 };

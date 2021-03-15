@@ -182,8 +182,6 @@ exports.findAll = async ({
     unique='cards'
 } = {}) => {
 
-    let result = [];
-
     // unique card
     let query = knex
         .select(knex.raw(`
@@ -192,7 +190,7 @@ exports.findAll = async ({
                 PARTITION BY card_template_id 
                 ORDER BY
                     set_type_rank ASC,
-                    date_released DESC NULL LAST,
+                    date_released DESC,
                     finish_type_rank ASC,
                     art_type_rank ASC
             ) AS template_rank`))

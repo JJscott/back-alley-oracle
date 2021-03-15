@@ -10,7 +10,7 @@ exports.getRandom = async () => {
       .from('mv_cards')
       .orderByRaw('random()')
       .limit(1)
-      .then(rows => { result = rowToCard(rows[0]); })
+      .then(rows => { result = (rows.length !== 0) ? rowToCard(rows[0]) : undefined; })
       .catch(err => { moduleLogger.error(err); throw err; });
     return result;
   }
