@@ -89,13 +89,13 @@ exports.rowsToCycles = (rows) => {
   tempCycleList.push(cards);
 
   cycles = []
-  tempCycleList.forEach(c => {
+  tempCycleList.forEach(cardList => {
     cycles.push({
       object: 'cycle',
-      name: c[0].name,
-      count: c.length,
-      bao_uri: `${process.env.WEB_URL}cycle?id=${c.map(x => x.hash_id).join('+')}`,
-      cards: c
+      name: cardList[0].name,
+      count: cardList.length,
+      bao_uri: `${process.env.WEB_URL}cycle?id=${cardList.map(x => x.hash_id).join('+')}`,
+      cards: cardList
     });
   });
   return cycles;
