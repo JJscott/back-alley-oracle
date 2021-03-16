@@ -77,25 +77,31 @@ exports.rowToCard = (row) => {
 exports.rowsToCycles = (rows) => {
   // collate similar
   let tempCycleList = [];
-  let cards = [];
+  let cycleRows = [];
   rows.forEach(row => {
-    let card = this.rowToCard(row);
-    if (cards.length > 0 && cards[0].name !== card.name) {
-      tempCycleList.push(cards);
-      cards = [];
+    if (cycleRows.length > 0 && cycleRows[0].name !== row.name) {
+      tempCycleList.push(cycleRows);
+      cycleRows = [];
     }
-    cards.push(card);
+    cycleRows.push(row);
   });
-  tempCycleList.push(cards);
+  tempCycleList.push(cycleRows);
 
   cycles = []
-  tempCycleList.forEach(cardList => {
+  tempCycleList.forEach(cycleRows => {
+
+    const cycleCards = cycleRows.map(row => this.rowToCard(row));
+    const hash_id = cardIdHasher.encode(cycleRows.map(row => row.card_id));
+    const name = cycleCards[0].name;
+
+    let card = this.rowToCard(row);
     cycles.push({
       object: 'cycle',
-      name: cardList[0].name,
-      count: cardList.length,
-      bao_uri: `${process.env.WEB_URL}cycle?id=${cardList.map(x => x.hash_id).join('+')}`,
-      cards: cardList
+      hash_id: hash_id,
+      name: name,
+      count: cycleCards.length,
+      bao_uri: `${process.env.WEB_URL}cards/cycle?name=${name}&id=${hash_id}`,
+      cards: cycleCards
     });
   });
   return cycles;

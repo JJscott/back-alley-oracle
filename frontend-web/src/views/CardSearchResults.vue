@@ -2,31 +2,36 @@
   <the-navigation-bar />
   <div class="search-flex">
     <div>
-      <card-search-feild v-bind:init="queryString"></card-search-feild>
+      <card-search-feild v-bind:init="querySegment"></card-search-feild>
     </div>
-    <div v-if="cardPages.length>0">
+    <div v-if="resultPages.length>0">
       <div>
-        {{cardPages[0].totalCount}} results
-        <ul v-if="cardPages[0].warnings">
-          <li class="card-search-warning" v-for="warning in cardPages[0].warnings" :key="warning">>
+        {{resultPages[0].totalCount}} results
+        <ul v-if="resultPages[0].warnings">
+          <li class="result-search-warning" v-for="warning in resultPages[0].warnings" :key="warning">>
             {{ warning }}
           </li>
         </ul>
       </div>
 
-      <div v-for="(cardPage, index) in cardPages" :key="index">
+      <div v-for="(resultPage, index) in resultPages" :key="index">
         <p>Page {{index + 1}}</p>
-        <div class="card-grid">
-          <div class="card-grid-inner">
-            <div class="card-grid-item" v-for="card in cardPage.data" :key="card.fcode">
-              <a v-bind:href="card.squireUri">
-                <img v-bind:src="card.imageUris.normal">
-              </a>
+        <div class="result-grid">
+          <div class="result-grid-inner">
+            <div class="result-grid-item" v-for="result in resultPage.data" :key="result.hash_id">
+              <div v-if="result.object==='card'">
+                <a v-bind:href="result.bao_uri">
+                  <img v-bind:src="result.image_uris.normal">
+                </a>
+              </div>
+              <div v-else-if="result.object==='cycle'">
+                <p>cycle</p>
+              </div>
             </div>
           </div>
         </div>
       </div>
-      <div v-if="loadMore" class="card-grid-loader">
+      <div v-if="loadMore" class="result-grid-loader">
         <div class="loader"></div>
       </div>
 
@@ -55,56 +60,57 @@ export default {
   data() {
     return {
       message: '',
-      cardPages: [],
+      resultPages: [],
       loadMore: true
     };
   },
   computed: {
-    queryString() {
-      return (this.$route.query.q) ? this.$route.query.q : '';
-    }
+    querySegment() { return (this.$route.query.q) ? this.$route.query.q : ''; },
+    uniqueSegment() { return (this.$route.query.unique) ? this.$route.query.unique : ''; }
   },
   methods: {
-    fetchNextCardPage(q) {
+    fetchNextResultPage() {
+      const q = this.querySegment;
+      const u = this.uniqueSegment;
       if (q && this.loadMore) {
         CardDataService.getQuery({
           q: q,
-          page: this.cardPages.length+1
+          page: this.resultPages.length+1,
+          unique: u
         })
           .then(response => {
-            this.cardPages.push(response.data);
+            this.resultPages.push(response.data);
             this.loadMore = response.data.hasMore;
-            // load card page if only 1 result
-            if (this.cardPages[0].totalCount === 1) {
-              this.$router.push({name:'card-view', params:{fcode: this.cardPages[0].data[0].fcode}});
-            }
+            // TODO load card/cycle page if only 1 result
+            // if (this.resultPages[0].totalCount === 1) {
+            //   this.$router.push({name:'card-view', params:{fcode: this.resultPages[0].data[0].fcode}});
+            // }
           })
           .catch(e => {
             console.log(e);
           });
       }
     },
-    scroll (person) {
+    scroll () {
       window.onscroll = () => {
         let bottomOfWindow = document.documentElement.scrollTop + window.innerHeight === document.documentElement.offsetHeight;
         if (bottomOfWindow) {
-          this.fetchNextCardPage(this.$route.query.q);
+          this.fetchNextResultPage(this.$route.query.q);
         }
       };
+    },
+    refreshResultPages () {
+      this.resultPages = [];
+      this.loadMore = true;
+      this.fetchNextResultPage();
     }
   },
   mounted() {
-    this.fetchNextCardPage(this.queryString);
+    this.fetchNextResultPage();
     this.scroll();
   },
   watch: {
-    queryString(newQuery) {
-      this.cardPages = [];
-      this.loadMore = true;
-      if (newQuery) {
-        this.fetchNextCardPage(newQuery);
-      }
-    }
+    querySegment(newQuery) { this.refreshResultPages(); }
   }
 };
 </script>
@@ -126,12 +132,12 @@ export default {
   background-color: white;
 }
 
-.card-grid {
+.result-grid {
   display: block;
   width: 100%;
 }
 
-.card-grid-inner {
+.result-grid-inner {
   width: 100%;
   max-width: 1300px;
   margin: auto;
@@ -142,7 +148,7 @@ export default {
   align-content: center;
 }
 
-.card-grid-item {
+.result-grid-item {
   width: 240px;
   font-size: 0px;
   margin: 5px;
@@ -158,12 +164,12 @@ export default {
 }
 
 
-.card-search-warning {
+.result-search-warning {
   color: red;
 }
 
 
-.card-grid-loader {
+.result-grid-loader {
   .loader {
     margin: 3rem auto 5rem auto;
   }
