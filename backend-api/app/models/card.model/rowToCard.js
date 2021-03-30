@@ -89,18 +89,16 @@ exports.rowsToCycles = (rows) => {
 
   cycles = []
   tempCycleList.forEach(cycleRows => {
-
     const cycleCards = cycleRows.map(row => this.rowToCard(row));
     const hash_id = cardIdHasher.encode(cycleRows.map(row => row.card_id));
-    const name = cycleCards[0].name;
+    const name = cycleCards[0].name; // TODO exchange with some cycle_name column at some point
 
-    let card = this.rowToCard(row);
     cycles.push({
       object: 'cycle',
       hash_id: hash_id,
       name: name,
       count: cycleCards.length,
-      bao_uri: `${process.env.WEB_URL}cards/cycle?name=${name}&id=${hash_id}`,
+      bao_uri: `${process.env.WEB_URL}cycles/${name}?id=${hash_id}`,
       cards: cycleCards
     });
   });
