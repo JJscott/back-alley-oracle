@@ -1,7 +1,7 @@
 {
-  "name": "floris",
-  "version": "1.0.0",
-  "description": "Node.js Rest API with Express, & MySQL",
+  "name": "backend-api",
+  "version": "0.1.0",
+  "description": "Backend API for Back Alley Oracle",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",

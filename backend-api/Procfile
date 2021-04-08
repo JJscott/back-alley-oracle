@@ -1,2 +1,0 @@
-release: npx knex-migrate up
-web: npm run start

@@ -2,7 +2,7 @@ const knex = require('../helpers/database')
 
 exports.findAllCardNames = async () => {
   let result = [];
-  await knex('cardNames')
+  await knex('card_names')
     .orderBy('name')
     .then(rows => {
       result = rows.map(row => row.name);
@@ -12,7 +12,7 @@ exports.findAllCardNames = async () => {
 
 exports.findAllCardClasses = async () => {
   let result = [];
-  await knex('cardClasses')
+  await knex('card_classes')
     .orderByRaw(`(class = 'Generic') DESC, class ASC`)
     .then(rows => {
       result = rows.map(row => row.class);
@@ -22,7 +22,7 @@ exports.findAllCardClasses = async () => {
 
 exports.findAllCardTypes = async () => {
   let result = [];
-  await knex('cardTypes')
+  await knex('card_types')
     .orderBy('type')
     .then(rows => {
       result = rows.map(row => row.type);
@@ -32,7 +32,7 @@ exports.findAllCardTypes = async () => {
 
 exports.findAllCardSubtypes = async () => {
   let result = [];
-  await knex('cardSubtypes')
+  await knex('card_subtypes')
     .orderBy('subtype')
     .then(rows => {
       result = rows.map(row => row.subtype);
@@ -42,12 +42,12 @@ exports.findAllCardSubtypes = async () => {
 
 exports.findAllCardTypesAndSubtypes = async () => {
   let result = [];
-  await knex('cardTypes')
+  await knex('card_types')
     .select('type', 'subtype')
     .distinct('type', 'subtype')
-    .leftJoin('cardTemplates', 'cardTemplates.cardTypeId', 'cardTypes.id')
-    .leftJoin('cardTemplateSubtypes', 'cardTemplateSubtypes.cardTemplateId', 'cardTemplates.id')
-    .leftJoin('cardSubtypes', 'cardSubtypes.id', 'cardTemplateSubtypes.cardSubtypeId')
+    .leftJoin('card_templates', 'card_templates.card_type_id', 'card_types.id')
+    .leftJoin('card_template_subtypes', 'card_template_subtypes.card_template_id', 'card_templates.id')
+    .leftJoin('card_subtypes', 'card_subtypes.id', 'card_template_subtypes.card_subtype_id')
     .orderBy('type')
     .orderBy('subtype')
     .then(rows => {
@@ -63,7 +63,7 @@ exports.findAllCardTypesAndSubtypes = async () => {
 
 exports.findAllCardSpecializations = async () => {
   let result = [];
-  await knex('cardSpecializations')
+  await knex('card_specializations')
     .orderBy('specialization')
     .then(rows => {
       result = rows.map(row => row.specialization);
@@ -73,7 +73,7 @@ exports.findAllCardSpecializations = async () => {
 
 exports.findAllCardKeywords = async () => {
   let result = [];
-  await knex('cardKeywords')
+  await knex('card_keywords')
     .orderBy('keyword')
     .then(rows => {
       result = rows.map(row => row.keyword);
@@ -83,8 +83,8 @@ exports.findAllCardKeywords = async () => {
 
 exports.findAllCardRarities = async () => {
   let result = [];
-  await knex('cardRarities')
-    .orderBy('rarityRank')
+  await knex('card_rarities')
+    .orderBy('rarity_rank')
     .then(rows => {
       result = rows.map(row => {
         return {
@@ -98,8 +98,8 @@ exports.findAllCardRarities = async () => {
 
 exports.findAllCardArtTypes = async () => {
   let result = [];
-  await knex('cardArtTypes')
-    .orderBy('artTypeRank')
+  await knex('card_art_types')
+    .orderBy('art_type_rank')
     .then(rows => {
       result = rows.map(row => {
         return {
@@ -113,8 +113,8 @@ exports.findAllCardArtTypes = async () => {
 
 exports.findAllCardFinishTypes = async () => {
   let result = [];
-  await knex('cardFinishTypes')
-    .orderBy('finishTypeRank')
+  await knex('card_finish_types')
+    .orderBy('finish_type_rank')
     .then(rows => {
       result = rows.map(row => {
         return {

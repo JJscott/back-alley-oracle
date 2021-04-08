@@ -37,11 +37,15 @@ Then seed the database with card data using
 `npm run dev`
 `npm run start`
 
-`docker build -t NAME`
-`docker run -p 8080:8080 NAME`
+
+## Docker
+
+```bash
+$docker build -t backend-api .
+$docker images --filter reference=backend-api
 
 
-
+```
 
 
 # notes:

@@ -1,0 +1,8 @@
+version: "3.9"
+
+services:
+  backend-api:
+    container_name: backend-api
+    build: ./backend-api
+    ports:
+      - "8080:8080"

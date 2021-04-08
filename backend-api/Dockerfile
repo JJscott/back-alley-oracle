@@ -1,4 +1,4 @@
-FROM node:15.7.0-alpine3.10
+FROM node:12.22.1-buster
 
 WORKDIR /app
 
@@ -8,6 +8,6 @@ RUN npm install
 
 COPY . .
 
-EXPOSE 8000
+EXPOSE 8080
 
 CMD ["npm", "start"]
