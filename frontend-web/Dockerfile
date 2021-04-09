@@ -1,22 +1,31 @@
-# build stage
-FROM node:15.7.0-alpine3.10 as build-stage
-
-ENV NODE_ENV production
+# Build stage
+# 
+FROM node:14.16.1-buster as build-stage
 
 WORKDIR /app
 
-COPY package*.json ./
-
-RUN npm ci --only=production
-
+# Copy and build source files
 COPY . .
+RUN set -x \
+    && npm ci --only=production \
+    && npm run build
 
-RUN npm build
 
 
-# production stage
-#FROM node:15.7.0-alpine3.10 as production-stage
+# Production stage
+# 
+FROM node:14.16.1-buster-slim as prod-stage
 
-EXPOSE 8000
+ENV NODE_ENV production
 
-ENTRYPOINT [ "npm run prod" ]
+# copy built files
+USER node
+WORKDIR /app
+COPY --chown=node:node --from=build-stage /app/dist ./dist
+COPY --chown=node:node --from=build-stage /app/package*.json ./
+COPY --chown=node:node --from=build-stage /app/node_modules ./node_modules
+
+CMD ["npm", "run", "start"]
+
+# RUN apt-get install dumb-init
+# CMD ["dumb-init", "npm", "run", "start"]

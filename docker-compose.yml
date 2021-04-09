@@ -1,8 +1,29 @@
 version: "3.9"
 
 services:
+  db-migration:
+    container_name: db-migration
+    image: amacneil/dbmate:v1.12.0
+    env_file:
+      - ./db-migration/.env
+    command: up
+
   backend-api:
     container_name: backend-api
+    depends_on:
+      - db-migration
     build: ./backend-api
     ports:
-      - "8080:8080"
+      - 8080:8080
+    env_file:
+      - ./backend-api/.env
+
+  frontend-web:
+    container_name: frontend-web
+    depends_on:
+      - backend-api
+    build: ./frontend-web
+    ports:
+      - 8081:8081
+    env_file:
+      - ./frontend-web/.env

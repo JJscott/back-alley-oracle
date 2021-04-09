@@ -41,8 +41,10 @@ Then seed the database with card data using
 ## Docker
 
 ```bash
-$docker build -t backend-api .
-$docker images --filter reference=backend-api
+$ docker build -t backend-api .
+$ docker images --filter reference=backend-api
+$ docker tag backend-api:latest 894336578105.dkr.ecr.ap-southeast-2.amazonaws.com/back-alley-oracle:backend-api-latest
+$ docker push 894336578105.dkr.ecr.ap-southeast-2.amazonaws.com/back-alley-oracle:backend-api-latest
 
 
 ```
