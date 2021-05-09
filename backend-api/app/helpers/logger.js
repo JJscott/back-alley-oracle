@@ -1,15 +1,19 @@
 require('dotenv').config();
-const bunyan = require('bunyan');
-const packageJson = require('../../package.json');
+const winston = require('winston');
 
-const logger = bunyan.createLogger({
-  name: 'Floris API',
-  version: packageJson.version,
-  streams: [{
-    stream: process.stdout,
-    level: process.env.NODE_ENV === 'development' ? bunyan.TRACE : bunyan.FATAL
-  }]
+const logger = winston.createLogger({
+  level: 'info',
+  format: winston.format.combine(
+    winston.format.timestamp({ format: 'YYYY-MM-DD HH:mm:ss' }),
+    winston.format.printf(info => `[${info.level}][${info.timestamp}][${info.label}] ${info.message}`)
+  ),
+  transports: [
+    // new winston.transports.File({ filename: 'error.log', level: 'error' }),
+    new winston.transports.Console()
+  ],
 });
-logger.info({ NODE_ENV: process.env.NODE_ENV }, 'API logger loaded');
 
-module.exports = { bunyan, logger };
+
+const create = name =>  logger.child({ label: name });
+
+module.exports = { winston, logger, create };
