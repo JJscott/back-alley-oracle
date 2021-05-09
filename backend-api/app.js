@@ -27,8 +27,8 @@ app.use(
 );
 // parse requests of content-type - application/json
 // and application/x-www-form-urlencoded
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json()); 
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json()); 
 
 
 // serve static files in the public directory
