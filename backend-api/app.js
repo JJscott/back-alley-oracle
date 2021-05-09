@@ -2,8 +2,8 @@ require('dotenv').config()
 const express = require("express");
 const cors = require("cors");
 const bodyParser = require("body-parser");
-const bunyanMiddleware = require('bunyan-middleware');
 const { logger } = require('./app/helpers/logger');
+const knex = require('./app/helpers/database');
 
 
 // create application to serve from express
@@ -15,16 +15,6 @@ const app = express();
 
 // app.use(express.static('build')); // static frontend
 app.use(cors());
-app.use(
-  bunyanMiddleware({
-    headerName: 'X-Request-Id',
-    propertyName: 'reqId',
-    logName: 'reqId',
-    obscureHeaders: ['authorization'],
-    logger,
-    additionalRequestFinishData: (_req, _res) => { return {}; }
-  })
-);
 // parse requests of content-type - application/json
 // and application/x-www-form-urlencoded
 app.use(express.urlencoded({ extended: true }));
