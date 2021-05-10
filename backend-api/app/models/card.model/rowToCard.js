@@ -64,7 +64,7 @@ const singleRowToCard = (row) => {
   // ?? nzId ??
   // tcgPlayerId
   // cardMerchantId
-  card.bao_uri = `${process.env.WEB_URL}cards/${hashId}`;
+  card.bao_uri = `${process.env.WEB_URL}cards/${row.template_sid}?id=${hashId}`;
   return card;
 }
 
